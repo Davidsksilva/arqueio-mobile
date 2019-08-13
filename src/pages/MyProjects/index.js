@@ -19,10 +19,14 @@ const MyProjects = () => {
     fetchProjects();
   }, []);
 
+  const handleCreateProject = event => {
+    alert('Creating project');
+  };
+
   return (
     <Container>
       <Header title="Meus Projetos" />
-      <Createbutton> Criar proejto </Createbutton>
+      <Createbutton onPress={handleCreateProject}> Criar proejto </Createbutton>
       <Project title="Projeto 01" description="Apartamento" />
       <Project title="Projeto 02" description="Casa" />
     </Container>
