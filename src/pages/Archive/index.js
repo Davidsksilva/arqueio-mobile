@@ -2,21 +2,21 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const MyProjects = () => {
+const Archive = () => {
   return (
     <View>
-      <Text>Meus Projetos</Text>
+      <Text>Arquivos</Text>
     </View>
   );
 };
 
-MyProjects.navigationOptions = {
-  tabBarLabel: 'Projetos',
+Archive.navigationOptions = {
+  tabBarLabel: 'Arquivos',
   // eslint-disable-next-line react/prop-types
   tabBarIcon: ({ tintColor }) => (
-    <Icon name="md-home" size={28} color={tintColor} />
+    <Icon name="md-archive" size={28} color={tintColor} />
   ),
-  title: 'Projetos',
+  title: 'Arquivos',
   headerStyle: {
     backgroundColor: '#03A9F4',
   },
@@ -26,4 +26,4 @@ MyProjects.navigationOptions = {
   },
 };
 
-export default MyProjects;
+export default Archive;

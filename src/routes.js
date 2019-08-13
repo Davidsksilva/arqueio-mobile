@@ -9,6 +9,9 @@ import SignUp from '~/pages/SignUp';
 
 import MyProjects from '~/pages/MyProjects';
 import Gallery from '~/pages/Gallery';
+import Notifications from '~/pages/Notifications';
+import Chat from '~/pages/Chat';
+import Archive from '~/pages/Archive';
 
 export default (isSigned = false) =>
   createAppContainer(
@@ -22,6 +25,9 @@ export default (isSigned = false) =>
           {
             MyProjects,
             Gallery,
+            Notifications,
+            Chat,
+            Archive,
           },
           {
             tabBarOptions: {

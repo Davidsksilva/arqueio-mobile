@@ -2,21 +2,21 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const MyProjects = () => {
+const Notifications = () => {
   return (
     <View>
-      <Text>Meus Projetos</Text>
+      <Text>Notificações</Text>
     </View>
   );
 };
 
-MyProjects.navigationOptions = {
-  tabBarLabel: 'Projetos',
+Notifications.navigationOptions = {
+  tabBarLabel: 'Notificações',
   // eslint-disable-next-line react/prop-types
   tabBarIcon: ({ tintColor }) => (
-    <Icon name="md-home" size={28} color={tintColor} />
+    <Icon name="md-notifications" size={28} color={tintColor} />
   ),
-  title: 'Projetos',
+  title: 'Notificações',
   headerStyle: {
     backgroundColor: '#03A9F4',
   },
@@ -26,4 +26,4 @@ MyProjects.navigationOptions = {
   },
 };
 
-export default MyProjects;
+export default Notifications;
