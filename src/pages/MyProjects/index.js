@@ -1,12 +1,31 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import Project from '~/components/Project';
+import Header from '~/components/Header';
+
+import { Container, List, Createbutton } from './styles';
+import Api from '~/services/api';
+
 const MyProjects = () => {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    async function fetchProjects() {
+      const project = await Api.get('/projects');
+      setProjects(project.data);
+    }
+
+    fetchProjects();
+  }, []);
+
   return (
-    <View>
-      <Text>Meus Projetos</Text>
-    </View>
+    <Container>
+      <Header title="Meus Projetos" />
+      <Createbutton> Criar proejto </Createbutton>
+      <Project title="Projeto 01" description="Apartamento" />
+      <Project title="Projeto 02" description="Casa" />
+    </Container>
   );
 };
 

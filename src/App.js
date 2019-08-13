@@ -6,7 +6,7 @@ import createRouter from './routes';
 const App = () => {
   const signed = useSelector(state => state.auth.signed);
 
-  const Routes = createRouter(true);
+  const Routes = createRouter(signed);
 
   return <Routes />;
 };
