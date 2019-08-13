@@ -1,5 +1,4 @@
 import produce from 'immer';
-import { breakStatement } from '@babel/types';
 
 const INITIAL_STATE = {
   token: null,
@@ -8,28 +7,40 @@ const INITIAL_STATE = {
 };
 
 export default function auth(state = INITIAL_STATE, action) {
-  return produce(state, draft => {
-    switch (action.type) {
-      case '@auth/SIGN_IN_REQUEST': {
+  switch (action.type) {
+    case '@auth/SIGN_IN_REQUEST':
+      return produce(state, draft => {
         draft.loading = true;
-        break;
-      }
-      case '@auth/SIGN_IN_SUCCESS': {
+      });
+    case '@auth/SIGN_IN_SUCCESS':
+      return produce(state, draft => {
         draft.token = action.payload.token;
         draft.signed = true;
         draft.loading = false;
-        break;
-      }
-      case '@auth/SIGN_FAILURE': {
+      });
+    case '@auth/SIGN_UP_REQUEST':
+      return produce(state, draft => {
+        draft.loading = true;
+      });
+    case '@auth/SIGN_FAILURE':
+      return produce(state, draft => {
         draft.loading = false;
-        break;
-      }
-      case '@auth/SIGN_OUT': {
+      });
+
+    case '@auth/SIGN_UP_SUCCESS':
+      return produce(state, draft => {
+        draft.loading = false;
+      });
+
+    case '@auth/SIGN_OUT': {
+      return produce(state, draft => {
         draft.token = null;
         draft.signed = false;
-        breakStatement;
-      }
-      default:
+      });
     }
-  });
+    default:
+      return produce(state, draft => {
+        return draft;
+      });
+  }
 }
