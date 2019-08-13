@@ -41,8 +41,6 @@ export function* signUp({ payload }) {
       password,
     });
 
-    yield put(signInSuccess(token, user));
-
     // history.push("/");
   } catch (err) {
     Alert.alert(
