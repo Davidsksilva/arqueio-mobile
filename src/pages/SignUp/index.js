@@ -27,14 +27,17 @@ const SignUp = ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   const loading = useSelector(state => state.auth.loading);
-
+  function returnSignIn() {
+    navigation.navigate('SignIn');
+  }
   function handleSubmit() {
-    dispatch(signUpRequest(name, email, password));
+    dispatch(signUpRequest(name, email, password, returnSignIn));
   }
 
   return (
     <Container>
       <Image source={logo} style={{ height: 150, width: 150 }} />
+
       <SignLinkText>Crie uma conta no Arqueio!</SignLinkText>
       <Form>
         <FormInput
