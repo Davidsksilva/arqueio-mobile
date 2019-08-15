@@ -4,9 +4,9 @@ import { takeLatest, call, put, all } from 'redux-saga/effects';
 // import history from "~/services/history";
 import api from '~/services/api';
 
-import { signInSuccess, signFailure, signUpSuccess } from './actions';
+import { signInSuccess, signFailure, signInRequest } from './actions';
 
-export function* signIn({ payload, callback }) {
+export function* signIn({ payload }) {
   try {
     const { email, password } = payload;
 
@@ -20,10 +20,6 @@ export function* signIn({ payload, callback }) {
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
     yield put(signInSuccess(token, user));
-
-    if (callback) {
-      yield call(callback);
-    }
 
     // history.push("/dashboard");
   } catch (err) {
@@ -45,7 +41,8 @@ export function* signUp({ payload }) {
       password,
     });
 
-    yield put(signUpSuccess());
+    // yield put(signUpSuccess());
+    yield put(signInRequest(email, password));
 
     // history.push("/");
   } catch (err) {
