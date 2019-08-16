@@ -4,7 +4,8 @@ import { FlatList } from 'react-native';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-  padding: 20px;
+  padding: 40px;
+  background-color: #eee;
 `;
 
 export const CreateButton = styled(RectButton)`
@@ -23,12 +24,25 @@ export const Projects = styled(FlatList).attrs({
   margin-top: 20px;
 `;
 
-export const ProjectContainer = styled.View`
+export const ProjectContainer = styled.View.attrs({
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: 1,
+  },
+  shadowOpacity: 0.22,
+  shadowRadius: 2.22,
+
+  elevation: 3,
+})`
   height: 160px;
-  border-radius: 8px;
+  border-radius: 4px;
   height: 160px;
-  background-color: #333;
+  background-color: #fff;
   margin-bottom: 20px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ProjectImage = styled.ImageBackground.attrs(props => ({
@@ -36,7 +50,7 @@ export const ProjectImage = styled.ImageBackground.attrs(props => ({
   imageStyle: { borderRadius: 8 },
 }))`
   width: 100%;
-  height: 160px;
+  height: 100%;
   border-radius: 8px;
   display: flex;
   flex-direction: column;

@@ -66,6 +66,8 @@ const MyProjects = () => {
 
         <Projects
           data={projectList}
+          onRefresh={() => {}}
+          refreshing={false}
           keyExtractor={project => String(project.id)}
           renderItem={({ item }) => (
             <ProjectContainer>
