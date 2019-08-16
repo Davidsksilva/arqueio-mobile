@@ -1,12 +1,18 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import { Container, SearchBar } from './styles';
+import Header from '~/components/Header';
 
 const Gallery = () => {
   return (
-    <View>
-      <Text>Galeria</Text>
-    </View>
+    <Container>
+      <Header title="Galeria" />
+      <SearchBar
+        placeholder="busque por uma inspiração..."
+        autoCapitalize="none"
+      />
+    </Container>
   );
 };
 
