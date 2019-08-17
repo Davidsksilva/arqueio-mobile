@@ -36,10 +36,15 @@ const Projects = createStackNavigator(
       header: props => {
         // eslint-disable-next-line react/prop-types
         const { scene } = props;
-
+        console.tron.log(props);
         return (
-          // eslint-disable-next-line react/prop-types
-          <Header title={scene.descriptor.options.title} {...navigation} />
+          <Header
+            // eslint-disable-next-line react/prop-types
+            color={scene.descriptor.options.headerStyle.backgroundColor}
+            // eslint-disable-next-line react/prop-types
+            title={scene.descriptor.options.title}
+            {...navigation}
+          />
         );
       },
     }),

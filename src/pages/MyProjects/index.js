@@ -108,6 +108,9 @@ MyProjects.propTypes = {
 
 MyProjects.navigationOptions = {
   title: 'Meus Projetos',
+  headerStyle: {
+    backgroundColor: '#fff',
+  },
 };
 
 export default MyProjects;

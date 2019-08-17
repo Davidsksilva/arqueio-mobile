@@ -48,6 +48,9 @@ const CreateProject = ({ navigation }) => {
 
 CreateProject.navigationOptions = {
   title: 'Criar Projeto',
+  headerStyle: {
+    backgroundColor: '#fff',
+  },
 };
 
 CreateProject.propTypes = {

@@ -28,6 +28,9 @@ const Options = () => {
 
 Options.navigationOptions = {
   title: 'Opções',
+  headerStyle: {
+    backgroundColor: '#fff',
+  },
 };
 
 export default Options;

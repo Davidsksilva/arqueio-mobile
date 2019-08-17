@@ -7,9 +7,9 @@ import { Container, Title } from './styles';
 
 import globalStyle from '~/styles/global';
 
-const Header = ({ title, icon, navigation, ...rest }) => {
+const Header = ({ title, icon, navigation, color, ...rest }) => {
   return (
-    <Container {...rest}>
+    <Container color={color} {...rest}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
         {
           <Icon
@@ -35,6 +35,7 @@ const Header = ({ title, icon, navigation, ...rest }) => {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.string,
+  color: PropTypes.string.isRequired,
   navigation: PropTypes.shape({
     goBack: PropTypes.func,
     navigate: PropTypes.func,

@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  background: #fff;
+  background: ${props => props.color};
   height: 64px;
   display: flex;
   flex-direction: row;
