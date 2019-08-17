@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import { Container, SearchBar } from './styles';
 import Header from '~/components/Header';
+import Filter from '~/components/FilterBar';
 
 const Gallery = () => {
   return (
@@ -12,6 +13,7 @@ const Gallery = () => {
         placeholder="busque por uma inspiração..."
         autoCapitalize="none"
       />
+      <Filter title="Filtro1" />
     </Container>
   );
 };

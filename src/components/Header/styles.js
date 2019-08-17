@@ -30,5 +30,3 @@ export const Title = styled.Text`
   font-size: 22px;
   font-weight: bold;
 `;
-
-export const Description = styled.Text``;
