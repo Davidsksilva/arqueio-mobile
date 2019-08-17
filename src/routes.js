@@ -1,17 +1,94 @@
-import {
+import React from 'react';
+import ReactNavigation, {
   createAppContainer,
   createSwitchNavigator,
   createBottomTabNavigator,
+  createStackNavigator,
 } from 'react-navigation';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import SignIn from '~/pages/SignIn';
 import SignUp from '~/pages/SignUp';
 
 import MyProjects from '~/pages/MyProjects';
+import CreateProject from '~/pages/CreateProject';
 import Gallery from '~/pages/Gallery';
 import Notifications from '~/pages/Notifications';
 import Chat from '~/pages/Chat';
 import Archive from '~/pages/Archive';
+import Options from '~/pages/Options';
+
+import Header from '~/components/Header';
+
+import globalStyle from '~/styles/global';
+
+const Projects = createStackNavigator(
+  {
+    MyProjects,
+    CreateProject,
+    Options,
+  },
+  {
+    initialRouteName: 'MyProjects',
+    headerMode: 'float',
+
+    defaultNavigationOptions: navigation => ({
+      header: props => {
+        // eslint-disable-next-line react/prop-types
+        const { scene } = props;
+
+        return (
+          // eslint-disable-next-line react/prop-types
+          <Header title={scene.descriptor.options.title} {...navigation} />
+        );
+      },
+    }),
+    cardStyle: {
+      backgroundColor: globalStyle.secondary,
+    },
+    transitionConfig: () =>
+      ReactNavigation.StackViewTransitionConfigs.SlideFromRightIOS,
+  }
+);
+
+const BottomTab = createBottomTabNavigator(
+  {
+    Projects: {
+      screen: Projects,
+      navigationOptions: {
+        tabBarLabel: 'Projetos',
+        // eslint-disable-next-line react/prop-types
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="md-home" size={28} color={tintColor} />
+        ),
+        title: 'Projetos',
+        headerStyle: {
+          backgroundColor: globalStyle.primary,
+        },
+        headerTintColor: globalStyle.secondary,
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      },
+    },
+    Gallery,
+    Notifications,
+    Chat,
+    Archive,
+  },
+  {
+    tabBarOptions: {
+      showLabel: true,
+      keyboardHidesTabBar: true,
+      activeTintColor: globalStyle.primary,
+      inactiveTintColor: '#C4c4c4',
+      style: {
+        backgroundColor: '#fefefe',
+        borderTopColor: 'transparent',
+      },
+    },
+  }
+);
 
 export default (isSigned = false) =>
   createAppContainer(
@@ -21,27 +98,7 @@ export default (isSigned = false) =>
           SignIn,
           SignUp,
         }),
-        App: createBottomTabNavigator(
-          {
-            MyProjects,
-            Gallery,
-            Notifications,
-            Chat,
-            Archive,
-          },
-          {
-            tabBarOptions: {
-              showLabel: true,
-              keyboardHidesTabBar: true,
-              activeTintColor: '#3398F4',
-              inactiveTintColor: '#C4c4c4',
-              style: {
-                backgroundColor: '#fefefe',
-                borderTopColor: 'transparent',
-              },
-            },
-          }
-        ),
+        App: createStackNavigator({ BottomTab }, { headerMode: 'none' }),
       },
       {
         initialRouteName: isSigned ? 'App' : 'Sign',

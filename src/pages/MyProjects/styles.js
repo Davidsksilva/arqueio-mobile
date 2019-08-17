@@ -2,19 +2,28 @@ import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 import { FlatList } from 'react-native';
 
+import globalStyle from '~/styles/global';
+
 export const Container = styled.SafeAreaView`
   flex: 1;
-  padding: 40px;
+  padding: 20px 40px;
   background-color: #eee;
+`;
+
+export const CreateButtonContainer = styled.View`
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
 `;
 
 export const CreateButton = styled(RectButton)`
   padding: 10px;
   display: flex;
+  width: 70%;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  background-color: #f0189f;
+  background-color: ${globalStyle.terciary};
   border-radius: 6px;
 `;
 
@@ -24,64 +33,6 @@ export const Projects = styled(FlatList).attrs({
   margin-top: 20px;
 `;
 
-export const ProjectContainer = styled.View.attrs({
-  shadowColor: '#000',
-  shadowOffset: {
-    width: 0,
-    height: 1,
-  },
-  shadowOpacity: 0.22,
-  shadowRadius: 2.22,
-
-  elevation: 3,
-})`
-  height: 160px;
-  border-radius: 4px;
-  height: 160px;
-  background-color: #fff;
-  margin-bottom: 20px;
-  padding: 10px;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const ProjectImage = styled.ImageBackground.attrs(props => ({
-  source: props.source,
-  imageStyle: { borderRadius: 8 },
-}))`
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-`;
-export const ProjectTitle = styled.Text`
-  color: #fff;
-  font-size: 20px;
-`;
-
-export const ProjectBanner = styled.View`
-  background-color: ${props => props.color};
-  height: 40%;
-  border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
-  padding: 5px;
-`;
-
-export const UpdateText = styled.Text`
-  color: #fff;
-  margin-left: 5px;
-  font-weight: 100;
-`;
-
-export const UpdateContainer = styled.View`
-  margin-top: 5px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-`;
 export const CreateText = styled.Text`
   color: #fff;
   margin-left: 5px;
@@ -95,3 +46,9 @@ export const List = styled.FlatList.attrs({
     padding: 30,
   },
 })``;
+
+export const LoadingContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;

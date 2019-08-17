@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import Icon from 'react-native-vector-icons/Ionicons';
+import PropTypes from 'prop-types';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-
-import Project from '~/components/Project';
-import Header from '~/components/Header';
+import { NavigationEvents } from 'react-navigation';
+import { ActivityIndicator } from 'react-native';
+import ProjectCard from '~/components/ProjectCard';
 
 import {
   Container,
   CreateButton,
   CreateText,
   Projects,
-  ProjectContainer,
-  ProjectImage,
-  ProjectTitle,
-  UpdateText,
-  ProjectBanner,
-  UpdateContainer,
+  CreateButtonContainer,
+  LoadingContainer,
 } from './styles';
-import Api from '~/services/api';
 
-import img01 from '~/assets/img01.jpg';
+import api from '~/services/api';
+
+/* import img01 from '~/assets/img01.jpg';
 import img02 from '~/assets/img02.jpg';
 
-const projectList = [
+ const projectList = [
   {
     id: 0,
     title: 'Projeto 01',
@@ -37,73 +34,80 @@ const projectList = [
     image: img02,
     color: '#FFBC61',
   },
-];
+]; */
 
-const MyProjects = () => {
+const MyProjects = ({ navigation }) => {
   const [projects, setProjects] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  async function fetchProjects() {
+    setLoading(true);
+    const project = await api.get('/projects');
+    setProjects(project.data);
+    setLoading(false);
+  }
 
   useEffect(() => {
-    async function fetchProjects() {
-      const project = await Api.get('/projects');
-      setProjects(project.data);
-    }
-
     fetchProjects();
   }, []);
 
-  const handleCreateProject = event => {
-    alert('Creating project');
+  const handleCreateProject = () => {
+    fetchProjects();
+    navigation.navigate('CreateProject');
   };
+
+  async function handleRefresh() {
+    setRefreshing(false);
+    const project = await api.get('/projects');
+    setProjects(project.data);
+    setRefreshing(false);
+  }
 
   return (
     <>
-      <Header title="Meus Projetos" />
+      <NavigationEvents onDidFocus={() => handleRefresh()} />
       <Container>
-        <CreateButton onPress={handleCreateProject}>
-          <MaterialIcon name="add-circle-outline" color="#fff" size={32} />
-          <CreateText>Projeto</CreateText>
-        </CreateButton>
+        <CreateButtonContainer>
+          <CreateButton onPress={handleCreateProject}>
+            <MaterialIcon name="add-circle-outline" color="#fff" size={32} />
+            <CreateText>Criar um Projeto</CreateText>
+          </CreateButton>
+        </CreateButtonContainer>
 
-        <Projects
-          data={projectList}
-          onRefresh={() => {}}
-          refreshing={false}
-          keyExtractor={project => String(project.id)}
-          renderItem={({ item }) => (
-            <ProjectContainer>
-              <ProjectImage source={item.image}>
-                <ProjectBanner color={item.color}>
-                  <ProjectTitle>{item.title}</ProjectTitle>
-                  <UpdateContainer>
-                    <MaterialIcon name="lens" size={10} color="#fff" />
-                    <UpdateText>{item.updates} Atualizações</UpdateText>
-                  </UpdateContainer>
-                </ProjectBanner>
-              </ProjectImage>
-            </ProjectContainer>
-          )}
-        />
-        {/* <Project title="Projeto 01" description="Apartamento" />
-        <Project title="Projeto 02" description="Casa" /> */}
+        {loading ? (
+          <LoadingContainer>
+            <ActivityIndicator color="#333" size="large" />
+          </LoadingContainer>
+        ) : (
+          <Projects
+            data={projects}
+            onRefresh={() => handleRefresh()}
+            refreshing={refreshing}
+            keyExtractor={project => String(project.id)}
+            renderItem={({ item }) => (
+              <ProjectCard
+                title={item.name}
+                image={item.image.path}
+                color={item.color}
+                updates={item.updates}
+              />
+            )}
+          />
+        )}
       </Container>
     </>
   );
 };
 
+MyProjects.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }).isRequired,
+};
+
 MyProjects.navigationOptions = {
-  tabBarLabel: 'Projetos',
-  // eslint-disable-next-line react/prop-types
-  tabBarIcon: ({ tintColor }) => (
-    <Icon name="md-home" size={28} color={tintColor} />
-  ),
-  title: 'Projetos',
-  headerStyle: {
-    backgroundColor: '#03A9F4',
-  },
-  headerTintColor: '#fff',
-  headerTitleStyle: {
-    fontWeight: 'bold',
-  },
+  title: 'Meus Projetos',
 };
 
 export default MyProjects;
