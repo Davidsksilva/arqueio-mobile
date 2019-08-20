@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
-import Button from '~/components/Button';
+import { FlatList } from 'react-native';
+import FilterButton from '~/components/FilterButton';
 
 export const Container = styled.View`
   margin: 10px;
@@ -19,11 +20,20 @@ export const Scroll = styled.ScrollView.attrs({
   margin: 0px;
 `;
 
-export const FilterButton = styled(Button).attrs({
+export const Button = styled(FilterButton).attrs({
   textColor: '#3b9eff',
 })`
   margin: 5px 5px 0px 5px;
   padding: 0px;
   width: 140px;
   background-color: transparent;
+  border-bottom-color: #ffffff;
+  border-bottom-width: 2;
+`;
+
+export const Tags = styled(FlatList).attrs({
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+})`
+  margin-top: 0px;
 `;
