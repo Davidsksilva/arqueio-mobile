@@ -1,49 +1,63 @@
 import React, { useState, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { ScrollView } from 'react-native';
 
-import { Container, SearchBar, Photos, Image } from './styles';
-import Header from '~/components/Header';
-import Filter from '~/components/FilterBar';
+import {
+  Container,
+  SearchBar,
+  TopBar,
+  Filter,
+  News,
+  Image,
+  Photos,
+} from './styles';
+import Logo from '~/assets/logo.png';
 
-import Api from '~/services/api';
+import api from '~/services/api';
+
+const listTags = [
+  { id: 1, title: 'Tudo' },
+  { id: 2, title: 'Sala' },
+  { id: 3, title: 'Cozinha' },
+  { id: 4, title: 'Banheiro' },
+  { id: 5, title: 'Varanda' },
+  { id: 6, title: 'Terraço' },
+];
+
+const count = 1;
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  async function fetchPhotos() {
+  async function fetchImages() {
     setLoading(true);
-    const image = await Api.get('/gallery');
-    setImages(image.data);
+    const imgs = await api.get('/projects');
+    setImages(imgs.data);
     setLoading(false);
-    console.log(images);
   }
 
   useEffect(() => {
-    fetchPhotos();
+    fetchImages();
   }, []);
 
   return (
     <Container>
-      <Header title="Galeria" />
-      <SearchBar
-        placeholder="busque por uma inspiração..."
-        autoCapitalize="none"
-      />
-      <Filter
-        tags={['Tudo', 'Sala', 'Cozinha', 'Banheiro', 'Varanda', 'Terraco']}
-      />
-      <Photos
-        data={images}
-        keyExtractor={image => String(image.id)}
-        renderItem={({ item }) => (
-          <Image
-            source={{
-              uri: 'https://facebook.github.io/react-native/img/tiny_logo.png',
-            }}
+      <TopBar title="Galeria" />
+      <ScrollView>
+        <Container>
+          <SearchBar
+            placeholder="busque por uma inspiração..."
+            autoCapitalize="none"
           />
-        )}
-      />
+          <Filter tags={listTags} />
+          <Photos
+            data={images}
+            keyExtractor={image => String(image.id)}
+            renderItem={item => <Image source={item.image.url} />}
+          />
+        </Container>
+      </ScrollView>
     </Container>
   );
 };

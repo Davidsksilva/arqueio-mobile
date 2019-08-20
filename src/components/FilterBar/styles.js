@@ -21,7 +21,7 @@ export const Scroll = styled.ScrollView.attrs({
 `;
 
 export const Button = styled(FilterButton).attrs({
-  textColor: '#3b9eff',
+  textColor: '#a6a6a6',
 })`
   margin: 5px 5px 0px 5px;
   padding: 0px;

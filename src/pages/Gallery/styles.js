@@ -1,25 +1,43 @@
 import styled from 'styled-components/native';
-import { FlatList } from 'react-native';
+import { FlatList, Dimensions } from 'react-native';
+
 import Search from '~/components/Search';
+import Header from '~/components/Header';
+import FilterBar from '~/components/FilterBar';
+
+const imageSize = Dimensions.get('window').width / 2 - 12;
 
 export const Container = styled.SafeAreaView`
   flex: 1;
 `;
 
-export const SearchBar = styled(Search)`
-  margin-top: 0px;
+export const TopBar = styled(Header)`
+  margin: 0px;
 `;
 
-export const Photos = styled(FlatList).attrs({
+export const SearchBar = styled(Search)`
+  margin-top: 10px;
+`;
+
+export const Filter = styled(FilterBar)`
+  margin: 5px;
+`;
+
+export const News = styled(FlatList).attrs({
   horizontal: true,
   showsHorizontalScrollIndicator: false,
 })`
-  margin-top: 0px;
+  margin: 0px;
 `;
 
-export const Image = styled.Image`
-  height: 160px;
-  width: 160px;
-  margin: 0;
-  padding: 0;
+export const Photos = styled(FlatList).attrs({
+  showsVerticalScrollIndicator: false,
+  numColumns: 2,
+})`
+  margin: 0px;
+`;
+
+export const Image = styled.Image.attrs({})`
+  height: 180px;
+  width: 180px;
 `;

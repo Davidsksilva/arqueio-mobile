@@ -2,6 +2,7 @@ import React from 'react';
 import { ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 
+import Icon from 'react-native-vector-icons/Ionicons';
 import { Container, Text, ButtonContainer } from './styles';
 
 const FilterButton = ({
@@ -9,20 +10,21 @@ const FilterButton = ({
   loading,
   textColor,
   textSize,
-  borderWidth,
+  icon,
   ...rest
 }) => {
   return (
     <Container {...rest}>
-      <ButtonContainer>
-        {loading ? (
-          <ActivityIndicator size="small" color="#fff" />
-        ) : (
+      {loading ? (
+        <ActivityIndicator size="small" color="#fff" />
+      ) : (
+        <ButtonContainer>
+          {icon ? <Icon name="md-search" size={28} color="#3b9eff" /> : null}
           <Text style={{ color: textColor, fontSize: textSize }}>
             {children}
           </Text>
-        )}
-      </ButtonContainer>
+        </ButtonContainer>
+      )}
     </Container>
   );
 };
@@ -32,12 +34,14 @@ FilterButton.propTypes = {
   textColor: PropTypes.string,
   textSize: PropTypes.number,
   loading: PropTypes.bool,
+  icon: PropTypes.string,
 };
 
 FilterButton.defaultProps = {
   loading: false,
   textColor: '#fefefe',
   textSize: 16,
+  icon: null,
 };
 
 export default FilterButton;
