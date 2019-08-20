@@ -1,18 +1,62 @@
 import React from 'react';
+import { TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { Container, Left, Right, Title } from './styles';
+import { Container, Title } from './styles';
 
-const Header = ({ title, icon, ...rest }) => {
+import globalStyle from '~/styles/global';
+
+const Header = ({ title, icon, navigation, color, ...rest }) => {
+  function getBackColor() {
+    if (navigation.isFirstRouteInParent() && color === globalStyle.secondary) {
+      return globalStyle.secondary;
+    }
+    if (color === globalStyle.secondary) {
+      return globalStyle.primary;
+    }
+    return globalStyle.secondary;
+  }
+
+  function getActionColor() {
+    if (color === globalStyle.secondary) {
+      return globalStyle.primary;
+    }
+    return globalStyle.secondary;
+  }
+
+  function renderRightAction() {
+    switch (navigation.state.routeName) {
+      case 'Profile':
+        return (
+          <TouchableOpacity onPress={() => navigation.navigate('Options')}>
+            <Icon name="settings" size={30} color={getActionColor()} />
+          </TouchableOpacity>
+        );
+
+      case 'Options':
+        return <></>;
+
+      default:
+        return (
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Icon name="person" size={30} color={getActionColor()} />
+          </TouchableOpacity>
+        );
+    }
+  }
+
   return (
-    <Container {...rest}>
-      <Left>
-        <Title>{title}</Title>
-      </Left>
-      <Right>
-        <Icon name="md-person" size={35} color="#DEDEDE" />
-      </Right>
+    <Container color={color} {...rest}>
+      <View style={{ flexDirection: 'row' }}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          {<Icon name="chevron-left" size={35} color={getBackColor()} />}
+        </TouchableOpacity>
+
+        <Title style={{ color: getActionColor() }}>{title}</Title>
+      </View>
+
+      {renderRightAction()}
     </Container>
   );
 };
@@ -20,6 +64,15 @@ const Header = ({ title, icon, ...rest }) => {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.string,
+  color: PropTypes.string.isRequired,
+  navigation: PropTypes.shape({
+    goBack: PropTypes.func,
+    navigate: PropTypes.func,
+    isFirstRouteInParent: PropTypes.func,
+    state: PropTypes.shape({
+      routeName: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 Header.defaultProps = {

@@ -9,12 +9,17 @@ import { store, persistor } from './store';
 
 import App from './App';
 
+import globalStyle from './styles/global';
+
 const Index = () => {
   return (
     <>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <StatusBar barStyle="light-content" backgroundColor="#3398F4" />
+          <StatusBar
+            barStyle="light-content"
+            backgroundColor={globalStyle.primary}
+          />
           <App />
         </PersistGate>
       </Provider>

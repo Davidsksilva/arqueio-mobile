@@ -1,13 +1,13 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  margin-bottom: 15px;
-  border-radius: 4px;
-  background: #fff;
+  background: ${props => props.color};
+  height: 64px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding: 10px;
 `;
 
 export const Left = styled.View`
@@ -28,7 +28,6 @@ export const Right = styled.View`
 export const Title = styled.Text`
   color: #3398f4;
   font-size: 22px;
-  font-weight: bold;
 `;
 
 export const Description = styled.Text``;
