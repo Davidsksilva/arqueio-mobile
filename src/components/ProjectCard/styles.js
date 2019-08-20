@@ -52,6 +52,19 @@ export const UpdateContainer = styled.View`
   margin-top: 5px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Right = styled.View`
+  flex-direction: row;
   justify-content: flex-start;
+  align-items: center;
+`;
+
+export const Left = styled.View`
+  flex-direction: row;
+  justify-content: flex-start;
+
   align-items: center;
 `;

@@ -28,7 +28,6 @@ export const Right = styled.View`
 export const Title = styled.Text`
   color: #3398f4;
   font-size: 22px;
-  font-weight: bold;
 `;
 
 export const Description = styled.Text``;

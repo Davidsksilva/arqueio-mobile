@@ -17,6 +17,7 @@ import Notifications from '~/pages/Notifications';
 import Chat from '~/pages/Chat';
 import Archive from '~/pages/Archive';
 import Options from '~/pages/Options';
+import Profile from '~/pages/Profile';
 
 import Header from '~/components/Header';
 
@@ -27,6 +28,7 @@ const Projects = createStackNavigator(
     MyProjects,
     CreateProject,
     Options,
+    Profile,
   },
   {
     initialRouteName: 'MyProjects',

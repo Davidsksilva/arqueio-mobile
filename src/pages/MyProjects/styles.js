@@ -6,8 +6,8 @@ import globalStyle from '~/styles/global';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-  padding: 20px 40px;
-  background-color: #eee;
+  padding: 20px 20px 0 20px;
+  background-color: #fff;
 `;
 
 export const CreateButtonContainer = styled.View`

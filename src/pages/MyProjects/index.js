@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { NavigationEvents } from 'react-navigation';
 import { ActivityIndicator } from 'react-native';
-import ProjectCard from '~/components/ProjectCard';
 
-import {
-  Container,
-  CreateButton,
-  CreateText,
-  Projects,
-  CreateButtonContainer,
-  LoadingContainer,
-} from './styles';
+import ProjectCard from '~/components/ProjectCard';
+import ButtonInput from '~/components/ButtonInput';
+import globalStyle from '~/styles/global';
+import { Container, Projects, LoadingContainer } from './styles';
 
 import api from '~/services/api';
 
@@ -36,8 +30,9 @@ import img02 from '~/assets/img02.jpg';
   },
 ]; */
 
-const MyProjects = ({ navigation }) => {
+const MyProjects = () => {
   const [projects, setProjects] = useState([]);
+  const [name, setName] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -52,11 +47,6 @@ const MyProjects = ({ navigation }) => {
     fetchProjects();
   }, []);
 
-  const handleCreateProject = () => {
-    fetchProjects();
-    navigation.navigate('CreateProject');
-  };
-
   async function handleRefresh() {
     setRefreshing(false);
     const project = await api.get('/projects');
@@ -64,16 +54,40 @@ const MyProjects = ({ navigation }) => {
     setRefreshing(false);
   }
 
+  async function handleCreateProject() {
+    const project = {
+      name,
+      cover_id: 7,
+      description: 'teste',
+    };
+
+    await api.post('/projects', project);
+
+    fetchProjects();
+  }
+
   return (
     <>
       <NavigationEvents onDidFocus={() => handleRefresh()} />
       <Container>
-        <CreateButtonContainer>
+        <ButtonInput
+          onPress={handleCreateProject}
+          iconName="add"
+          iconColor={globalStyle.primary}
+          value={name}
+          onChangeText={setName}
+          placeholder="Crie um novo projeto..."
+          autoCorrect={false}
+          autoCapitalize="none"
+          returnKeyType="send"
+          onSubmitEditing={handleCreateProject}
+        />
+        {/* <CreateButtonContainer>
           <CreateButton onPress={handleCreateProject}>
             <MaterialIcon name="add-circle-outline" color="#fff" size={32} />
             <CreateText>Criar um Projeto</CreateText>
           </CreateButton>
-        </CreateButtonContainer>
+        </CreateButtonContainer> */}
 
         {loading ? (
           <LoadingContainer>

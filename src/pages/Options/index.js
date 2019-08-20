@@ -27,7 +27,7 @@ const Options = () => {
 };
 
 Options.navigationOptions = {
-  title: 'Opções',
+  title: 'Ajustes',
   headerStyle: {
     backgroundColor: '#fff',
   },
