@@ -29,5 +29,3 @@ export const Title = styled.Text`
   color: #3398f4;
   font-size: 22px;
 `;
-
-export const Description = styled.Text``;
