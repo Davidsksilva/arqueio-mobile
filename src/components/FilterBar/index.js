@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { Container, Button, Tags } from './styles';
+import { Container, Button, Tags, handleButton } from './styles';
 
 const FilterBar = ({ tags, ...rest }) => {
   const [index, setIndex] = useState(1);
 
   useEffect(() => {}, []);
-
-  const handleButton = id_ => {
-    setIndex(id_);
-  };
 
   return (
     <Container {...rest}>
@@ -22,20 +18,12 @@ const FilterBar = ({ tags, ...rest }) => {
             <Button
               textColor="#3b9eff"
               style={{ borderBottomColor: '#3b9eff' }}
-              onPress={() => {
-                handleButton(item.id);
-              }}
+              onPress={handleButton}
             >
               {item.title}
             </Button>
           ) : (
-            <Button
-              onPress={() => {
-                handleButton(item.id);
-              }}
-            >
-              {item.title}
-            </Button>
+            <Button onPress={handleButton}>{item.title}</Button>
           )
         }
       />
@@ -50,6 +38,7 @@ FilterBar.propTypes = {
       title: PropTypes.string.isRequired,
     })
   ).isRequired,
+  handleButton: PropTypes.func.isRequired,
 };
 
 export default FilterBar;

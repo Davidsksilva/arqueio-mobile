@@ -26,12 +26,17 @@ const BOX_SIZE = Dimensions.get('window').width / 2 - 12;
 const Gallery = () => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [index, setIndex] = useState(0);
 
   async function fetchImages() {
     setLoading(true);
     const imgs = await api.get('/gallery');
     setImages(imgs.data);
     setLoading(false);
+  }
+
+  function handleTagButton(id_) {
+    console.log('oi');
   }
 
   useEffect(() => {
@@ -46,7 +51,7 @@ const Gallery = () => {
             placeholder="busque por uma inspiração..."
             autoCapitalize="none"
           />
-          <Filter tags={listTags} />
+          <Filter tags={listTags} handleButton={handleTagButton} />
           {loading ? (
             <LoadingContainer>
               <ActivityIndicator color="#333" size="large" />
