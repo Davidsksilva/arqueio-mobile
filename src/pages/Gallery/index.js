@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { ScrollView } from 'react-native';
+import { ScrollView, ActivityIndicator, Dimensions } from 'react-native';
 
 import {
   Container,
   SearchBar,
-  TopBar,
   Filter,
-  News,
   Image,
   Photos,
+  LoadingContainer,
 } from './styles';
-import Logo from '~/assets/logo.png';
 
 import api from '~/services/api';
 
@@ -24,7 +21,7 @@ const listTags = [
   { id: 6, title: 'Terraço' },
 ];
 
-const count = 1;
+const BOX_SIZE = Dimensions.get('window').width / 2 - 12;
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
@@ -32,7 +29,7 @@ const Gallery = () => {
 
   async function fetchImages() {
     setLoading(true);
-    const imgs = await api.get('/projects');
+    const imgs = await api.get('/gallery');
     setImages(imgs.data);
     setLoading(false);
   }
@@ -43,7 +40,6 @@ const Gallery = () => {
 
   return (
     <Container>
-      <TopBar title="Galeria" />
       <ScrollView>
         <Container>
           <SearchBar
@@ -51,11 +47,28 @@ const Gallery = () => {
             autoCapitalize="none"
           />
           <Filter tags={listTags} />
-          <Photos
-            data={images}
-            keyExtractor={image => String(image.id)}
-            renderItem={item => <Image source={item.image.url} />}
-          />
+          {loading ? (
+            <LoadingContainer>
+              <ActivityIndicator color="#333" size="large" />
+            </LoadingContainer>
+          ) : (
+            <Photos
+              data={images}
+              keyExtractor={image => String(image.id)}
+              columnWrapperStyle={{
+                flex: 1,
+                justifyContent: 'space-around',
+              }}
+              renderItem={item => {
+                return (
+                  <Image
+                    style={{ height: BOX_SIZE, width: BOX_SIZE }}
+                    source={{ uri: item.item.image.path }}
+                  />
+                );
+              }}
+            />
+          )}
         </Container>
       </ScrollView>
     </Container>
@@ -63,18 +76,9 @@ const Gallery = () => {
 };
 
 Gallery.navigationOptions = {
-  tabBarLabel: 'Galeria',
-  // eslint-disable-next-line react/prop-types
-  tabBarIcon: ({ tintColor }) => (
-    <Icon name="md-search" size={28} color={tintColor} />
-  ),
-  title: 'Projetos',
+  title: 'Galeria',
   headerStyle: {
-    backgroundColor: '#03A9F4',
-  },
-  headerTintColor: '#fff',
-  headerTitleStyle: {
-    fontWeight: 'bold',
+    backgroundColor: '#fff',
   },
 };
 

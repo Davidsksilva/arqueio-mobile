@@ -58,6 +58,39 @@ const Projects = createStackNavigator(
   }
 );
 
+const GalleryStack = createStackNavigator(
+  {
+    Gallery,
+    Options,
+    Profile,
+  },
+  {
+    initialRouteName: 'Gallery',
+    headerMode: 'float',
+
+    defaultNavigationOptions: navigation => ({
+      header: props => {
+        // eslint-disable-next-line react/prop-types
+        const { scene } = props;
+        return (
+          <Header
+            // eslint-disable-next-line react/prop-types
+            color={scene.descriptor.options.headerStyle.backgroundColor}
+            // eslint-disable-next-line react/prop-types
+            title={scene.descriptor.options.title}
+            {...navigation}
+          />
+        );
+      },
+    }),
+    cardStyle: {
+      backgroundColor: globalStyle.secondary,
+    },
+    transitionConfig: () =>
+      ReactNavigation.StackViewTransitionConfigs.SlideFromRightIOS,
+  }
+);
+
 const BottomTab = createBottomTabNavigator(
   {
     Projects: {
@@ -78,7 +111,24 @@ const BottomTab = createBottomTabNavigator(
         },
       },
     },
-    Gallery,
+    Gallery: {
+      screen: GalleryStack,
+      navigationOptions: {
+        tabBarLabel: 'Galeria',
+        // eslint-disable-next-line react/prop-types
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="md-search" size={28} color={tintColor} />
+        ),
+        title: 'Galeria',
+        headerStyle: {
+          backgroundColor: globalStyle.primary,
+        },
+        headerTintColor: globalStyle.secondary,
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      },
+    },
     Notifications,
     Chat,
     Archive,

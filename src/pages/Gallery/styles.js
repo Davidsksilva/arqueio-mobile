@@ -1,22 +1,15 @@
 import styled from 'styled-components/native';
-import { FlatList, Dimensions } from 'react-native';
+import { FlatList } from 'react-native';
 
 import Search from '~/components/Search';
-import Header from '~/components/Header';
 import FilterBar from '~/components/FilterBar';
-
-const imageSize = Dimensions.get('window').width / 2 - 12;
 
 export const Container = styled.SafeAreaView`
   flex: 1;
 `;
 
-export const TopBar = styled(Header)`
-  margin: 0px;
-`;
-
 export const SearchBar = styled(Search)`
-  margin-top: 10px;
+  margin-top: 0px;
 `;
 
 export const Filter = styled(FilterBar)`
@@ -40,4 +33,11 @@ export const Photos = styled(FlatList).attrs({
 export const Image = styled.Image.attrs({})`
   height: 180px;
   width: 180px;
+  margin: 5px;
+`;
+
+export const LoadingContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `;
