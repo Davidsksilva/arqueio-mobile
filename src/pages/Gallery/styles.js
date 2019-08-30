@@ -41,3 +41,9 @@ export const LoadingContainer = styled.View`
   align-items: center;
   justify-content: center;
 `;
+
+export const Title = styled.Text`
+  font-size: 18px;
+  color: #868686;
+  margin: 10px;
+`;

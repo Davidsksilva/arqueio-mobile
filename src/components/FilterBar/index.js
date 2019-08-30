@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { Container, Button, Tags, handleButton } from './styles';
+import { Container, ButtonF, Tags } from './styles';
 
-const FilterBar = ({ tags, ...rest }) => {
+const FilterBar = ({ tags, handleButton, ...rest }) => {
   const [index, setIndex] = useState(1);
 
   useEffect(() => {}, []);
+
+  function handlePress(id_) {
+    setIndex(id_);
+  }
 
   return (
     <Container {...rest}>
@@ -15,15 +19,27 @@ const FilterBar = ({ tags, ...rest }) => {
         keyExtractor={item => String(item.id)}
         renderItem={({ item }) =>
           item.id === index ? (
-            <Button
+            <ButtonF
               textColor="#3b9eff"
               style={{ borderBottomColor: '#3b9eff' }}
-              onPress={handleButton}
+              icon={item.icon}
+              onPress={() => {
+                handleButton(item.id);
+                handlePress(item.id);
+              }}
             >
               {item.title}
-            </Button>
+            </ButtonF>
           ) : (
-            <Button onPress={handleButton}>{item.title}</Button>
+            <ButtonF
+              icon={item.icon}
+              onPress={() => {
+                handleButton(item.id);
+                handlePress(item.id);
+              }}
+            >
+              {item.title}
+            </ButtonF>
           )
         }
       />
