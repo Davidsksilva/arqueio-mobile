@@ -13,6 +13,7 @@ import SignUp from '~/pages/SignUp';
 import MyProjects from '~/pages/MyProjects';
 import CreateProject from '~/pages/CreateProject';
 import Gallery from '~/pages/Gallery';
+import GalleryImage from '~/pages/GalleryImage';
 import Notifications from '~/pages/Notifications';
 import Chat from '~/pages/Chat';
 import Archive from '~/pages/Archive';
@@ -61,6 +62,7 @@ const Projects = createStackNavigator(
 const GalleryStack = createStackNavigator(
   {
     Gallery,
+    GalleryImage,
     Options,
     Profile,
   },

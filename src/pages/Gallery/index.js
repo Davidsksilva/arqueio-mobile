@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, ActivityIndicator, Dimensions } from 'react-native';
+import PropTypes from 'prop-types';
 
 import {
   Container,
   SearchBar,
   Filter,
+  ImageContainer,
   Image,
   Photos,
   LoadingContainer,
@@ -25,21 +27,21 @@ const listTags = [
 
 const BOX_SIZE = Dimensions.get('window').width / 2 - 12;
 
-const Gallery = () => {
+const Gallery = props => {
   const [images, setImages] = useState([]);
   const [newsImages, setNewImages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(1);
 
   async function fetchImages() {
     setLoading(true);
-    if (index === 0) {
+    if (index === 1) {
       const imgs = await api.get('/gallery');
       const news = await api.get('/gallery?tag=novidade');
       setImages(imgs.data);
       setNewImages(news.data);
     } else {
-      const imgs = await api.get('/gallery?tag=novidade');
+      const imgs = await api.get('/gallery?tag=sala');
       setImages(imgs.data);
     }
     setLoading(false);
@@ -62,17 +64,23 @@ const Gallery = () => {
             autoCapitalize="none"
           />
           <Filter tags={listTags} handleButton={handleTagButton} />
-          {loading ? null : <Title>Novidades</Title>}
-          {loading && index === 0 ? null : (
+          {loading || index !== 1 ? null : <Title>Novidades</Title>}
+          {loading || index !== 1 ? null : (
             <News
               data={newsImages}
               keyExtractor={image => String(image.id)}
               renderItem={item => {
                 return (
-                  <Image
+                  <ImageContainer
                     style={{ height: BOX_SIZE, width: BOX_SIZE }}
-                    source={{ uri: item.item.image.path }}
-                  />
+                    onPress={() => {
+                      props.navigation.navigate('GalleryImage', {
+                        info: item.item,
+                      });
+                    }}
+                  >
+                    <Image source={{ uri: item.item.image.path }} />
+                  </ImageContainer>
                 );
               }}
               _
@@ -93,10 +101,16 @@ const Gallery = () => {
               }}
               renderItem={item => {
                 return (
-                  <Image
+                  <ImageContainer
                     style={{ height: BOX_SIZE, width: BOX_SIZE }}
-                    source={{ uri: item.item.image.path }}
-                  />
+                    onPress={() => {
+                      props.navigation.navigate('GalleryImage', {
+                        info: item.item,
+                      });
+                    }}
+                  >
+                    <Image source={{ uri: item.item.image.path }} />
+                  </ImageContainer>
                 );
               }}
               _
@@ -106,6 +120,17 @@ const Gallery = () => {
       </ScrollView>
     </Container>
   );
+};
+
+Gallery.propTypes = {
+  navigation: PropTypes.shape({
+    goBack: PropTypes.func,
+    navigate: PropTypes.func,
+    isFirstRouteInParent: PropTypes.func,
+    state: PropTypes.shape({
+      routeName: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 Gallery.navigationOptions = {

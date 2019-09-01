@@ -30,10 +30,14 @@ export const Photos = styled(FlatList).attrs({
   margin: 0px;
 `;
 
-export const Image = styled.Image.attrs({})`
+export const ImageContainer = styled.TouchableOpacity`
   height: 180px;
   width: 180px;
   margin: 5px;
+`;
+
+export const Image = styled.Image.attrs({})`
+  flex: 1;
 `;
 
 export const LoadingContainer = styled.View`
