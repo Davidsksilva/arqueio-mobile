@@ -32,6 +32,10 @@ const GalleryImage = props => {
     setLoading(false);
   }
 
+  function goToFurnisher() {
+    props.navigation.navigate('GalleryFurnisher');
+  }
+
   useEffect(() => {
     fetchImages();
   }, []);
@@ -39,7 +43,7 @@ const GalleryImage = props => {
   return (
     <Container>
       <Image source={{ uri: imageInfo.image.path }} />
-      <Description text={imageInfo.description} />
+      <Description text={imageInfo.description} furnisher={goToFurnisher} />
       <Products />
       {loading ? null : <Title>Imagens Semelhantes</Title>}
       {loading ? (

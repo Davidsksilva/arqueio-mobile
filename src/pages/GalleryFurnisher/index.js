@@ -5,55 +5,31 @@ import PropTypes from 'prop-types';
 import {
   Container,
   SearchBar,
-  Filter,
   ImageContainer,
   Image,
   Photos,
   LoadingContainer,
-  News,
   Title,
 } from './styles';
 
 import api from '~/services/api';
 
-const listTags = [
-  { id: 1, title: 'Tudo' },
-  { id: 2, title: 'Sala', icon: 'weekend' },
-  { id: 3, title: 'Jantar', icon: 'restaurant' },
-  { id: 4, title: 'Quarto', icon: 'airline-seat-individual-suite' },
-  { id: 5, title: 'Banheiro' },
-  { id: 6, title: 'Terraço' },
-];
-
 const BOX_SIZE = Dimensions.get('window').width / 2 - 12;
 
 const Gallery = props => {
   const [images, setImages] = useState([]);
-  const [newsImages, setNewImages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [index, setIndex] = useState(1);
 
   async function fetchImages() {
     setLoading(true);
-    if (index === 1) {
-      const imgs = await api.get('/gallery');
-      const news = await api.get('/gallery?tag=novidade');
-      setImages(imgs.data);
-      setNewImages(news.data);
-    } else {
-      const imgs = await api.get('/gallery?tag=sala');
-      setImages(imgs.data);
-    }
+    const imgs = await api.get('/gallery');
+    setImages(imgs.data);
     setLoading(false);
-  }
-
-  function handleTagButton(id_) {
-    setIndex(id_);
   }
 
   useEffect(() => {
     fetchImages();
-  }, [index]);
+  }, []);
 
   return (
     <Container>
@@ -63,30 +39,7 @@ const Gallery = props => {
             placeholder="busque por uma inspiração..."
             autoCapitalize="none"
           />
-          <Filter tags={listTags} handleButton={handleTagButton} />
-          {loading || index !== 1 ? null : <Title>Novidades</Title>}
-          {loading || index !== 1 ? null : (
-            <News
-              data={newsImages}
-              keyExtractor={image => String(image.id)}
-              renderItem={item => {
-                return (
-                  <ImageContainer
-                    style={{ height: BOX_SIZE, width: BOX_SIZE }}
-                    onPress={() => {
-                      props.navigation.navigate('GalleryImage', {
-                        info: item.item,
-                      });
-                    }}
-                  >
-                    <Image source={{ uri: item.item.image.path }} />
-                  </ImageContainer>
-                );
-              }}
-              _
-            />
-          )}
-          {loading ? null : <Title>Inspira-se</Title>}
+          {loading ? null : <Title>Fornecedor</Title>}
           {loading ? (
             <LoadingContainer>
               <ActivityIndicator color="#333" size="large" />

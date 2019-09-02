@@ -14,6 +14,7 @@ import MyProjects from '~/pages/MyProjects';
 import CreateProject from '~/pages/CreateProject';
 import Gallery from '~/pages/Gallery';
 import GalleryImage from '~/pages/GalleryImage';
+import GalleryFurnisher from '~/pages/GalleryFurnisher';
 import Notifications from '~/pages/Notifications';
 import Chat from '~/pages/Chat';
 import Archive from '~/pages/Archive';
@@ -63,6 +64,7 @@ const GalleryStack = createStackNavigator(
   {
     Gallery,
     GalleryImage,
+    GalleryFurnisher,
     Options,
     Profile,
   },
