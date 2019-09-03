@@ -1,4 +1,5 @@
 import React from 'react';
+import { TouchableHighlight } from 'react-native';
 import ImageSlider from 'react-native-image-slider';
 
 import {
@@ -8,6 +9,8 @@ import {
   Image,
   Details,
   DetailsText,
+  ContainerButtonsSlider,
+  ButtonSlider,
 } from './styles';
 
 const images = [
@@ -40,6 +43,23 @@ const Products = ({ ...rest }) => {
             </Container>
           );
         }}
+        customButtons={(position, move) => (
+          <ContainerButtonsSlider>
+            {images.map((image, index) => {
+              return (
+                <TouchableHighlight
+                  key={index}
+                  underlayColor="#ccc"
+                  onPress={() => move(index)}
+                >
+                  <ButtonSlider
+                    style={position === index && { backgroundColor: '#4d4d4d' }}
+                  />
+                </TouchableHighlight>
+              );
+            })}
+          </ContainerButtonsSlider>
+        )}
       />
       <Details
         data={details}

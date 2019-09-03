@@ -19,6 +19,20 @@ export const SubTitle = styled.Text`
   margin: 5px auto;
 `;
 
+export const ContainerButtonsSlider = styled.View`
+  flex: 1;
+  background: #fff;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+export const ButtonSlider = styled.View`
+  width: 15px;
+  height: 3px;
+  background: #c4c4c4;
+  margin: 5px 5px;
+`;
+
 export const Image = styled.Image.attrs({
   resizeMode: 'cover',
 })`

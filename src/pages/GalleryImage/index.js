@@ -12,7 +12,12 @@ import {
   ImageContainer,
   ImageSimilar,
   Title,
+  TitleFurnisher,
+  DescriptionFurnisher,
   LoadingContainer,
+  ButtonsContainer,
+  Button,
+  ButtonFurnisher,
 } from './styles';
 
 import api from '~/services/api';
@@ -45,6 +50,23 @@ const GalleryImage = props => {
       <Image source={{ uri: imageInfo.image.path }} />
       <Description text={imageInfo.description} furnisher={goToFurnisher} />
       <Products />
+      <ButtonsContainer>
+        <Button icon="local-mall">Loja</Button>
+        <Button icon="archive">Salvar</Button>
+        <Button icon="3d-rotation">3D</Button>
+      </ButtonsContainer>
+      <TitleFurnisher>Conheça o fornecedor</TitleFurnisher>
+      <DescriptionFurnisher>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam.
+      </DescriptionFurnisher>
+      <ButtonsContainer>
+        <ButtonFurnisher icon="open-in-new">Site</ButtonFurnisher>
+        <ButtonFurnisher icon="local-phone">Contato</ButtonFurnisher>
+        <ButtonFurnisher icon="place">Endereço</ButtonFurnisher>
+        <ButtonFurnisher icon="person-add">Sociais</ButtonFurnisher>
+      </ButtonsContainer>
       {loading ? null : <Title>Imagens Semelhantes</Title>}
       {loading ? (
         <LoadingContainer>

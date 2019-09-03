@@ -12,6 +12,7 @@ const FilterButton = ({
   textColor,
   textSize,
   icon,
+  isColumnDirection,
   onPress,
   ...rest
 }) => {
@@ -20,7 +21,10 @@ const FilterButton = ({
       {loading ? (
         <ActivityIndicator size="small" color="#fff" />
       ) : (
-        <ButtonContainer onPress={onPress}>
+        <ButtonContainer
+          onPress={onPress}
+          style={isColumnDirection && { flexDirection: 'column' }}
+        >
           {icon ? <Icon name={icon} size={20} color={textColor} /> : null}
           <Text style={{ color: textColor, fontSize: textSize }}>
             {children}
@@ -38,6 +42,7 @@ FilterButton.propTypes = {
   loading: PropTypes.bool,
   icon: PropTypes.string,
   onPress: PropTypes.func,
+  isColumnDirection: PropTypes.bool,
 };
 
 FilterButton.defaultProps = {
@@ -46,6 +51,7 @@ FilterButton.defaultProps = {
   textSize: 16,
   icon: null,
   onPress: null,
+  isColumnDirection: false,
 };
 
 export default FilterButton;
