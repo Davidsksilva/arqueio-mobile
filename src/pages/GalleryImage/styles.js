@@ -27,7 +27,7 @@ export const ImageContainer = styled.TouchableOpacity`
   margin: 5px;
 `;
 
-export const ImageSimilar = styled.Image.attrs({})`
+export const ImageSimilar = styled.Image`
   flex: 1;
 `;
 
