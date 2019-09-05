@@ -47,7 +47,7 @@ FilterButton.propTypes = {
 
 FilterButton.defaultProps = {
   loading: false,
-  textColor: '#fefefe',
+  textColor: '#c4c4c4',
   textSize: 16,
   icon: null,
   onPress: null,

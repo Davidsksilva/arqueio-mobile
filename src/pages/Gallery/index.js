@@ -18,14 +18,16 @@ import api from '~/services/api';
 
 const listTags = [
   { id: 1, title: 'Tudo' },
-  { id: 2, title: 'Sala', icon: 'weekend' },
-  { id: 3, title: 'Jantar', icon: 'restaurant' },
-  { id: 4, title: 'Quarto', icon: 'airline-seat-individual-suite' },
-  { id: 5, title: 'Banheiro' },
-  { id: 6, title: 'Terraço' },
+  { id: 2, title: 'Estar' },
+  { id: 3, title: 'Jantar' },
+  { id: 4, title: 'Quarto' },
+  { id: 5, title: 'Cozinha' },
+  { id: 6, title: 'Banheiro' },
+  { id: 7, title: 'Escritório' },
+  { id: 8, title: 'Jardim' },
 ];
 
-const BOX_SIZE = Dimensions.get('window').width / 2 - 12;
+const BOX_SIZE = (Dimensions.get('window').width - 40) / 2;
 
 const Gallery = props => {
   const [images, setImages] = useState([]);
@@ -60,7 +62,7 @@ const Gallery = props => {
       <ScrollView>
         <Container>
           <SearchBar
-            placeholder="busque por uma inspiração..."
+            placeholder="Busque uma inspiração"
             autoCapitalize="none"
           />
           <Filter tags={listTags} handleButton={handleTagButton} />
@@ -72,7 +74,11 @@ const Gallery = props => {
               renderItem={item => {
                 return (
                   <ImageContainer
-                    style={{ height: BOX_SIZE, width: BOX_SIZE }}
+                    style={{
+                      height: BOX_SIZE,
+                      width: BOX_SIZE,
+                      marginRight: 10,
+                    }}
                     onPress={() => {
                       props.navigation.navigate('GalleryImage', {
                         info: item.item,
@@ -86,7 +92,7 @@ const Gallery = props => {
               _
             />
           )}
-          {loading ? null : <Title>Inspira-se</Title>}
+          {loading ? null : <Title>Inspire-se</Title>}
           {loading ? (
             <LoadingContainer>
               <ActivityIndicator color="#333" size="large" />
@@ -102,7 +108,7 @@ const Gallery = props => {
               renderItem={item => {
                 return (
                   <ImageContainer
-                    style={{ height: BOX_SIZE, width: BOX_SIZE }}
+                    style={{ height: BOX_SIZE + 50, width: BOX_SIZE }}
                     onPress={() => {
                       props.navigation.navigate('GalleryImage', {
                         info: item.item,

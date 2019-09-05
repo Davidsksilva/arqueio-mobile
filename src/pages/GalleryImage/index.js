@@ -18,11 +18,12 @@ import {
   ButtonsContainer,
   Button,
   ButtonFurnisher,
+  FurnisherNews,
 } from './styles';
 
 import api from '~/services/api';
 
-const BOX_SIZE = Dimensions.get('window').width / 2 - 12;
+const BOX_SIZE = (Dimensions.get('window').width - 40) / 2;
 
 const GalleryImage = props => {
   const [newImages, setNewImages] = useState([]);
@@ -32,7 +33,7 @@ const GalleryImage = props => {
 
   async function fetchImages() {
     setLoading(true);
-    const imgs = await api.get('/gallery?tag=novidade');
+    const imgs = await api.get('/gallery');
     setNewImages(imgs.data);
     setLoading(false);
   }
@@ -49,6 +50,31 @@ const GalleryImage = props => {
     <Container>
       <Image source={{ uri: imageInfo.image.path }} />
       <Description text={imageInfo.description} furnisher={goToFurnisher} />
+      {loading ? null : <Title>Veja mais da Italínea</Title>}
+      {loading ? (
+        <LoadingContainer>
+          <ActivityIndicator color="#333" size="large" />
+        </LoadingContainer>
+      ) : (
+        <FurnisherNews
+          data={newImages}
+          keyExtractor={image => String(image.id)}
+          renderItem={item => {
+            return (
+              <ImageContainer
+                style={{
+                  height: BOX_SIZE,
+                  width: BOX_SIZE,
+                  marginRight: 10,
+                }}
+              >
+                <ImageSimilar source={{ uri: item.item.image.path }} />
+              </ImageContainer>
+            );
+          }}
+          _
+        />
+      )}
       <Products />
       <ButtonsContainer>
         <Button icon="local-mall">Loja</Button>

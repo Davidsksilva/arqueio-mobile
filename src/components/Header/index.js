@@ -29,8 +29,16 @@ const Header = ({ title, icon, navigation, color, ...rest }) => {
     switch (navigation.state.routeName) {
       case 'Profile':
         return (
-          <TouchableOpacity onPress={() => navigation.navigate('Options')}>
-            <Icon name="settings" size={30} color={getActionColor()} />
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Options')}
+            style={{
+              paddingRight: 5,
+              paddingLeft: 15,
+              paddingTop: 15,
+              paddingBottom: 15,
+            }}
+          >
+            <Icon name="settings" size={35} color={getActionColor()} />
           </TouchableOpacity>
         );
 
@@ -39,8 +47,16 @@ const Header = ({ title, icon, navigation, color, ...rest }) => {
 
       default:
         return (
-          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-            <Icon name="person" size={30} color={getActionColor()} />
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Profile')}
+            style={{
+              paddingRight: 5,
+              paddingLeft: 15,
+              paddingTop: 15,
+              paddingBottom: 15,
+            }}
+          >
+            <Icon name="person" size={35} color={getActionColor()} />
           </TouchableOpacity>
         );
     }

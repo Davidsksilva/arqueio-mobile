@@ -11,8 +11,12 @@ const Description = ({ logo, text, tags, furnisher, ...rest }) => {
           <Text onPress={furnisher}>Italinea</Text>
         </Left>
         <Right>
-          <Button icon="send">Enviar</Button>
-          <Button icon="archive">Salvar</Button>
+          <Button icon="send" color="#3398f4">
+            Enviar
+          </Button>
+          <Button icon="archive" color="#3398f4">
+            Salvar
+          </Button>
         </Right>
       </Top>
       <Bottom>
