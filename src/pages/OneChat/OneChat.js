@@ -64,7 +64,7 @@ const OneChat = props => {
 OneChat.navigationOptions = screenProps => ({
   title: screenProps.navigation.getParam('receivingUser').name,
   headerStyle: {
-    backgroundColor: '#03A9F4',
+    backgroundColor: '#3398f4',
   },
   headerTintColor: '#fff',
   headerTitleStyle: {

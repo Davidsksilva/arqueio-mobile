@@ -96,7 +96,7 @@ ChatList.navigationOptions = {
   headerStyle: {
     backgroundColor: '#fff',
   },
-  headerTintColor: '#03A9F4',
+  headerTintColor: '#3398f4',
   headerTitleStyle: {
     fontWeight: 'bold',
   },
