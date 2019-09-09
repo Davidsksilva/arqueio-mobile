@@ -9,10 +9,11 @@ import { resetMessages } from '~/store/modules/messages/actions';
 const App = () => {
   const dispatch = useDispatch();
   const signed = useSelector(state => state.auth.signed);
-  const id = useSelector(state => state.user.profile.id);
+  const profile = useSelector(state => state.user.profile);
+
   if (signed) {
     dispatch(resetMessages());
-    LoginSocket(id);
+    LoginSocket(profile.id);
   }
 
   const Routes = createRouter(signed);
