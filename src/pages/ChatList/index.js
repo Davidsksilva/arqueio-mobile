@@ -4,11 +4,9 @@ import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import api from '~/services/api';
 
-import avatar from '~/assets/00_Teste/Profile_01.jpg';
+import avatar from '~/assets/avatar.png';
 import global from '~/styles/global';
-import { openChat } from '~/store';
 
 import {
   ChatItemText,
@@ -58,7 +56,7 @@ const ChatList = props => {
               <ChatItemOutter onPress={() => openChat(item)}>
                 <ChatItemInner>
                   <ChatItemAvatar
-                    source={item.image.path ? { uri: item.image.path } : avatar}
+                    source={item.image ? { uri: item.image.path } : avatar}
                   />
                   <ChatItemContent>
                     <ChatItemRow>
