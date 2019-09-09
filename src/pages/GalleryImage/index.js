@@ -62,7 +62,9 @@ const GalleryImage = props => {
       {loading ? null : (
         <Title>
           Veja mais da{' '}
-          {imageInfo.sponsor === null ? imageInfo.sponsor.name : null}
+          {imageInfo.sponsor !== null
+            ? imageInfo.sponsor.name
+            : ' Forncededora'}
         </Title>
       )}
       {loading ? (
@@ -96,9 +98,7 @@ const GalleryImage = props => {
       </ButtonsContainer>
       <TitleFurnisher>Conheça o fornecedor</TitleFurnisher>
       <DescriptionFurnisher>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam.
+        {imageInfo.sponsor === null ? null : imageInfo.sponsor.description}
       </DescriptionFurnisher>
       <ButtonsContainer>
         <ButtonFurnisher icon="open-in-new">Site</ButtonFurnisher>
