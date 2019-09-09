@@ -13,31 +13,34 @@ export const SearchBar = styled(Search)`
 `;
 
 export const Filter = styled(FilterBar)`
-  margin: 5px;
+  margin: 0 20px 0 20px;
 `;
 
 export const News = styled(FlatList).attrs({
   horizontal: true,
   showsHorizontalScrollIndicator: false,
 })`
-  margin: 0px;
+  margin-left: 15px;
 `;
 
 export const Photos = styled(FlatList).attrs({
   showsVerticalScrollIndicator: false,
   numColumns: 2,
 })`
-  margin: 0px;
+  margin-left: 10px;
+  margin-right: 10px;
 `;
 
 export const ImageContainer = styled.TouchableOpacity`
   height: 180px;
   width: 180px;
-  margin: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 `;
 
 export const Image = styled.Image.attrs({})`
   flex: 1;
+  border-radius: 10;
 `;
 
 export const LoadingContainer = styled.View`
@@ -47,7 +50,7 @@ export const LoadingContainer = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: 18px;
-  color: #868686;
-  margin: 10px;
+  font-size: 20px;
+  color: #c4c4c4;
+  margin: 20px 20px 10px 20px;
 `;

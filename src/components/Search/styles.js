@@ -5,7 +5,7 @@ export const Container = styled.View`
   height: 50px;
   margin: 0px 20px 0px 20px;
   padding: 0px;
-  border-width: 2px;
+  border-width: 1.5px;
   border-color: #dedede;
   border-radius: 6;
   align-items: center;
@@ -29,11 +29,11 @@ export const TInput = styled.TextInput.attrs({
   placeholderTextColor: '#a6a6a6',
 })`
   font-size: 18;
-  padding-left: 10px;
+  padding-left: 13px;
   padding-top: 0px;
   padding-bottom: 0px;
   margin-bottom: 0px;
-  border-left-width: 2px;
+  border-left-width: 1.5px;
   border-left-color: #dedede;
   justify-content: center;
 `;

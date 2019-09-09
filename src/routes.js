@@ -131,6 +131,39 @@ const GalleryStack = createStackNavigator(
   }
 );
 
+const NotificationStack = createStackNavigator(
+  {
+    Notifications,
+    Options,
+    Profile,
+  },
+  {
+    initialRouteName: 'Notification',
+    headerMode: 'float',
+
+    defaultNavigationOptions: navigation => ({
+      header: props => {
+        // eslint-disable-next-line react/prop-types
+        const { scene } = props;
+        return (
+          <Header
+            // eslint-disable-next-line react/prop-types
+            color={scene.descriptor.options.headerStyle.backgroundColor}
+            // eslint-disable-next-line react/prop-types
+            title={scene.descriptor.options.title}
+            {...navigation}
+          />
+        );
+      },
+    }),
+    cardStyle: {
+      backgroundColor: globalStyle.secondary,
+    },
+    transitionConfig: () =>
+      ReactNavigation.StackViewTransitionConfigs.SlideFromRightIOS,
+  }
+);
+
 const BottomTab = createBottomTabNavigator(
   {
     Projects: {

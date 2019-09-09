@@ -15,7 +15,7 @@ export const Left = styled.View`
   flex-direction: row;
   align-items: flex-start;
   padding: 10px;
-  padding-left: 20px;
+  padding-left: 10px;
 `;
 
 export const Right = styled.View`
@@ -27,5 +27,5 @@ export const Right = styled.View`
 
 export const Title = styled.Text`
   color: #3398f4;
-  font-size: 22px;
+  font-size: 24px;
 `;

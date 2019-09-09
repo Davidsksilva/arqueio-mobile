@@ -10,10 +10,10 @@ export const Top = styled.View`
   height: 45px;
   flex-direction: row;
   justify-content: space-around;
-  border-bottom-width: 1px;
-  border-bottom-color: #dedede;
   margin-left: 20px;
   margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 export const Left = styled.View`
@@ -32,16 +32,18 @@ export const Right = styled.View`
 export const Bottom = styled.View`
   margin-left: 20px;
   margin-right: 20px;
-  margin-top: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
 `;
 
 export const Text = styled.Text`
   color: #384145;
-  font-size: 16px;
+  font-size: 14px;
+  line-height: 22px;
 `;
 
 export const Button = styled(FilterButton).attrs({
-  textColor: '#a6a6a6',
+  textColor: '#3398f4',
 })`
   width: 90px;
   height: 45px;

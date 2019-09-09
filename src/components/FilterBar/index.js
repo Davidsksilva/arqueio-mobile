@@ -21,7 +21,7 @@ const FilterBar = ({ tags, handleButton, ...rest }) => {
           item.id === index ? (
             <ButtonF
               textColor="#3b9eff"
-              style={{ borderBottomColor: '#3b9eff' }}
+              style={{ borderBottomColor: '#3b9eff', borderBottomWidth: 2 }}
               icon={item.icon}
               onPress={() => {
                 handleButton(item.id);
@@ -33,6 +33,7 @@ const FilterBar = ({ tags, handleButton, ...rest }) => {
           ) : (
             <ButtonF
               icon={item.icon}
+              style={{ borderBottomColor: '#c4c4c4' }}
               onPress={() => {
                 handleButton(item.id);
                 handlePress(item.id);

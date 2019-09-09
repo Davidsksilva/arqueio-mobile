@@ -11,7 +11,14 @@ export const Image = styled.Image.attrs({
   resizeMode: 'cover',
 })`
   width: 100%;
-  height: 400px;
+  height: 500px;
+`;
+
+export const FurnisherNews = styled(FlatList).attrs({
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+})`
+  margin-left: 15px;
 `;
 
 export const Photos = styled(FlatList).attrs({
@@ -24,11 +31,13 @@ export const Photos = styled(FlatList).attrs({
 export const ImageContainer = styled.TouchableOpacity`
   height: 180px;
   width: 180px;
-  margin: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 `;
 
 export const ImageSimilar = styled.Image`
   flex: 1;
+  border-radius: 10;
 `;
 
 export const LoadingContainer = styled.View`
@@ -38,9 +47,9 @@ export const LoadingContainer = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: 22px;
+  font-size: 20px;
   color: #3398f4;
-  margin: 10px;
+  margin-left: 20px;
 `;
 
 export const TitleFurnisher = styled.Text`

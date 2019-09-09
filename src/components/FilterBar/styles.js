@@ -9,8 +9,8 @@ export const Container = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-bottom-width: 2px;
-  border-bottom-color: #dedede;
+  border-bottom-width: 0px;
+  border-bottom-color: #c4c4c4;
 `;
 
 export const Scroll = styled.ScrollView.attrs({
@@ -23,12 +23,12 @@ export const Scroll = styled.ScrollView.attrs({
 export const ButtonF = styled(FilterButton).attrs({
   textColor: '#a6a6a6',
 })`
-  margin: 5px 5px 0px 5px;
+  margin: 5px 0px 0px 0px;
   padding: 0px;
-  width: 140px;
+  width: 125px;
   background-color: transparent;
-  border-bottom-color: #ffffff;
-  border-bottom-width: 2;
+  border-bottom-color: #c4c4c4;
+  border-bottom-width: 1.5;
 `;
 
 export const Tags = styled(FlatList).attrs({
