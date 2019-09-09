@@ -11,9 +11,18 @@ const Notifications = () => {
 };
 
 Notifications.navigationOptions = {
+  tabBarLabel: 'Notificações',
+  // eslint-disable-next-line react/prop-types
+  tabBarIcon: ({ tintColor }) => (
+    <Icon name="md-notifications" size={28} color={tintColor} />
+  ),
   title: 'Notificações',
   headerStyle: {
     backgroundColor: '#fff',
+  },
+  headerTintColor: '#03A9F4',
+  headerTitleStyle: {
+    fontWeight: 'bold',
   },
 };
 

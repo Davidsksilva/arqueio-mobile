@@ -48,10 +48,6 @@ const OneChat = props => {
     },
   ]); */
 
-  const onSend = message => {
-    setMessages(GiftedChat.append(messages, message));
-  };
-
   return (
     <View style={{ flex: 1, height: '100%' }}>
       <GiftedChat

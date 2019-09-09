@@ -5,11 +5,13 @@ import { Container, ButtonF, Tags } from './styles';
 
 const FilterBar = ({ tags, handleButton, ...rest }) => {
   const [index, setIndex] = useState(1);
+  const [flatListRef, setFlatListRef] = useState(null);
 
   useEffect(() => {}, []);
 
   function handlePress(id_) {
     setIndex(id_);
+    flatListRef.scrollToIndex({ index: id_ - 1, animated: true });
   }
 
   return (
@@ -17,6 +19,9 @@ const FilterBar = ({ tags, handleButton, ...rest }) => {
       <Tags
         data={tags}
         keyExtractor={item => String(item.id)}
+        ref={ref => {
+          setFlatListRef(ref);
+        }}
         renderItem={({ item }) =>
           item.id === index ? (
             <ButtonF

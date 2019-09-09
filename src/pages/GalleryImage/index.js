@@ -30,6 +30,7 @@ const GalleryImage = props => {
   const [loading, setLoading] = useState(false);
 
   const imageInfo = props.navigation.getParam('info');
+  console.log(imageInfo);
 
   async function fetchImages() {
     setLoading(true);
@@ -49,8 +50,21 @@ const GalleryImage = props => {
   return (
     <Container>
       <Image source={{ uri: imageInfo.image.path }} />
-      <Description text={imageInfo.description} furnisher={goToFurnisher} />
-      {loading ? null : <Title>Veja mais da Italínea</Title>}
+      <Description
+        name={imageInfo.sponsor === null ? null : imageInfo.sponsor.name}
+        logo={
+          imageInfo.sponsor === null ? null : imageInfo.sponsor.imageUrl.path
+        }
+        text={imageInfo.description}
+        furnisher={goToFurnisher}
+        tags={imageInfo.tags}
+      />
+      {loading ? null : (
+        <Title>
+          Veja mais da{' '}
+          {imageInfo.sponsor === null ? imageInfo.sponsor.name : null}
+        </Title>
+      )}
       {loading ? (
         <LoadingContainer>
           <ActivityIndicator color="#333" size="large" />
@@ -75,7 +89,6 @@ const GalleryImage = props => {
           _
         />
       )}
-      <Products />
       <ButtonsContainer>
         <Button icon="local-mall">Loja</Button>
         <Button icon="archive">Salvar</Button>

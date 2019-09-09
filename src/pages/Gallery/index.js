@@ -34,6 +34,7 @@ const Gallery = props => {
   const [newsImages, setNewImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [index, setIndex] = useState(1);
+  const [searchImage, setSearchImage] = useState('');
 
   async function fetchImages() {
     setLoading(true);
@@ -42,10 +43,23 @@ const Gallery = props => {
       const news = await api.get('/gallery?tag=novidade');
       setImages(imgs.data);
       setNewImages(news.data);
-    } else {
-      const imgs = await api.get('/gallery?tag=sala');
+    } else if (index > 1) {
+      const imgs = await api.get(
+        `/gallery?tag=${listTags[index - 1].title.toLowerCase()}`
+      );
       setImages(imgs.data);
+      console.log(imgs.data);
     }
+    setLoading(false);
+  }
+
+  async function fetchSearchImages() {
+    setLoading(true);
+    setIndex(0);
+    const imgs = await api.get(
+      `/gallery?filter=${searchImage.split(' ').join('%20')}`
+    );
+    setImages(imgs.data);
     setLoading(false);
   }
 
@@ -64,6 +78,10 @@ const Gallery = props => {
           <SearchBar
             placeholder="Busque uma inspiração"
             autoCapitalize="none"
+            onPress={() => fetchSearchImages()}
+            onChangeText={setSearchImage}
+            returnKeyType="send"
+            onSubmitEditing={fetchSearchImages}
           />
           <Filter tags={listTags} handleButton={handleTagButton} />
           {loading || index !== 1 ? null : <Title>Novidades</Title>}

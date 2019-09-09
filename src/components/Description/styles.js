@@ -49,3 +49,8 @@ export const Button = styled(FilterButton).attrs({
   height: 45px;
   margin: auto 5px;
 `;
+
+export const Image = styled.Image`
+  width: 80px;
+  height: 30px;
+`;

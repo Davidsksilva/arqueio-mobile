@@ -1,14 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Container, Top, Left, Right, Bottom, Text, Button } from './styles';
+import {
+  Container,
+  Top,
+  Left,
+  Right,
+  Bottom,
+  Text,
+  Button,
+  Image,
+} from './styles';
 
-const Description = ({ logo, text, tags, furnisher, ...rest }) => {
+const Description = ({ logo, name, text, tags, furnisher, ...rest }) => {
   return (
     <Container {...rest}>
       <Top>
         <Left>
-          <Text onPress={furnisher}>Italinea</Text>
+          <Image resizeMode="stretch" source={{ uri: logo }} />
         </Left>
         <Right>
           <Button icon="send" color="#3398f4">
@@ -28,8 +37,8 @@ const Description = ({ logo, text, tags, furnisher, ...rest }) => {
 
 Description.propTypes = {
   logo: PropTypes.string.isRequired,
-  tags: PropTypes.arrayOf(PropTypes.shape(PropTypes.string.isRequired))
-    .isRequired,
+  name: PropTypes.string.isRequired,
+  tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   text: PropTypes.string.isRequired,
   furnisher: PropTypes.func.isRequired,
 };

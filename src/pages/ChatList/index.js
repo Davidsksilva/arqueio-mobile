@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -8,6 +8,7 @@ import api from '~/services/api';
 
 import avatar from '~/assets/00_Teste/Profile_01.jpg';
 import global from '~/styles/global';
+import { openChat } from '~/store';
 
 import {
   ChatItemText,
@@ -15,19 +16,30 @@ import {
   Container,
   SearchBar,
   List,
+  Filter,
   ChatItemOutter,
   ChatItemAvatar,
   ChatItemContent,
   ChatItemInner,
   ChatItemRow,
 } from './styles';
-import { openChat } from '~/store';
+
+const listTags = [
+  { id: 1, title: 'Tudo' },
+  { id: 2, title: 'Projeto 01' },
+  { id: 3, title: 'Projeto 02' },
+];
 
 const ChatList = props => {
+  const [index, setIndex] = useState(1);
   const contacts = useSelector(state => state.contacts.users);
 
   function openChat(receivingUser) {
     props.navigation.navigate('OneChat', { receivingUser });
+  }
+
+  function handleTagButton(id_) {
+    setIndex(id_);
   }
 
   return (
@@ -38,6 +50,7 @@ const ChatList = props => {
             placeholder="busque em uma conversa."
             autoCapitalize="none"
           />
+          <Filter tags={listTags} handleButton={handleTagButton} />
           <List
             data={contacts}
             keyExtractor={item => String(item.id)}

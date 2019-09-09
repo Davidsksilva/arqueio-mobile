@@ -15,7 +15,7 @@ export const SearchBar = styled(Search)`
 `;
 
 export const Filter = styled(FilterBar)`
-  margin: 5px;
+  margin: 0 20px 0 20px;
 `;
 
 export const List = styled(FlatList).attrs({
@@ -25,11 +25,9 @@ export const List = styled(FlatList).attrs({
 `;
 
 export const ChatItemOutter = styled.TouchableOpacity`
-  margin-top: 35px;
+  margin-top: 20px;
   margin-left: 20px;
   margin-right: 20px;
-  border-top-color: #dedede;
-  border-top-width: 1px;
   border-style: solid;
 
   border-bottom-color: #dedede;

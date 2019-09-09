@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import FeedTagsNav from '~/components/FeedTagsNav/FeedTagsNav';
 import SearchBarTab from '~/components/SearchBarTab/SearchBarTab';
 import TaskButton from '~/components/AddTaskButton/TaskButton';
 import ChatBox from '~/components/ChatBox/ChatBox';
-
-import Tony from '~/assets/tony.jpg';
-import Avatar from '~/assets/avatar.png';
 
 import Logo from '~/assets/logo_blue.png';
 import Styles from './Styles';

@@ -6,7 +6,7 @@ import globalStyle from '~/styles/global';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-  padding: 20px 20px 0 20px;
+  padding: 0px 0px 0px 0px;
   background-color: #fff;
 `;
 
@@ -30,7 +30,7 @@ export const CreateButton = styled(RectButton)`
 export const Projects = styled(FlatList).attrs({
   showsVerticalScrollIndicator: false,
 })`
-  margin-top: 20px;
+  margin: 20px 20px 0 20px;
 `;
 
 export const CreateText = styled.Text`
