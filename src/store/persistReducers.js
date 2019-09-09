@@ -6,7 +6,7 @@ export default reducers => {
     {
       key: 'arqueio',
       storage,
-      whitelist: ['auth', 'user'],
+      whitelist: ['auth', 'user', 'contacts', 'messages'],
     },
     reducers
   );

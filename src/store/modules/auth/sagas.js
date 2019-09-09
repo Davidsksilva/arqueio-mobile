@@ -6,6 +6,8 @@ import api from '~/services/api';
 
 import { signInSuccess, signFailure, signInRequest } from './actions';
 
+import { LoginSocket } from '~/store';
+
 export function* signIn({ payload }) {
   try {
     const { email, password } = payload;
@@ -19,6 +21,8 @@ export function* signIn({ payload }) {
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
+    //LoginSocket(user.id);
+    
     yield put(signInSuccess(token, user));
 
     // history.push("/dashboard");

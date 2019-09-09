@@ -16,14 +16,51 @@ import Gallery from '~/pages/Gallery';
 import GalleryImage from '~/pages/GalleryImage';
 import GalleryFurnisher from '~/pages/GalleryFurnisher';
 import Notifications from '~/pages/Notifications';
-import Chat from '~/pages/Chat';
+import ChatList from '~/pages/ChatList';
 import Archive from '~/pages/Archive';
 import Options from '~/pages/Options';
 import Profile from '~/pages/Profile';
+import SearchContact from '~/pages/SearchContact';
+import OneChat from '~/pages/OneChat/OneChat';
 
 import Header from '~/components/Header';
 
 import globalStyle from '~/styles/global';
+
+const ChatStack = createStackNavigator(
+  {
+    ChatList,
+    Options,
+    Profile,
+    SearchContact,
+    OneChat,
+  },
+  {
+    initialRouteName: 'ChatList',
+    headerMode: 'float',
+
+    defaultNavigationOptions: navigation => ({
+      header: props => {
+        // eslint-disable-next-line react/prop-types
+        const { scene } = props;
+        return (
+          <Header
+            // eslint-disable-next-line react/prop-types
+            color={scene.descriptor.options.headerStyle.backgroundColor}
+            // eslint-disable-next-line react/prop-types
+            title={scene.descriptor.options.title}
+            {...navigation}
+          />
+        );
+      },
+    }),
+    cardStyle: {
+      backgroundColor: globalStyle.secondary,
+    },
+    transitionConfig: () =>
+      ReactNavigation.StackViewTransitionConfigs.SlideFromRightIOS,
+  }
+);
 
 const Projects = createStackNavigator(
   {
@@ -40,7 +77,6 @@ const Projects = createStackNavigator(
       header: props => {
         // eslint-disable-next-line react/prop-types
         const { scene } = props;
-        console.tron.log(props);
         return (
           <Header
             // eslint-disable-next-line react/prop-types
@@ -133,8 +169,26 @@ const BottomTab = createBottomTabNavigator(
         },
       },
     },
+
     Notifications,
-    Chat,
+    Chat: {
+      screen: ChatStack,
+      navigationOptions: {
+        tabBarLabel: 'Conversas',
+        // eslint-disable-next-line react/prop-types
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="md-chatboxes" size={28} color={tintColor} />
+        ),
+        title: 'Conversas',
+        headerStyle: {
+          backgroundColor: globalStyle.primary,
+        },
+        headerTintColor: globalStyle.secondary,
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      },
+    },
     Archive,
   },
   {

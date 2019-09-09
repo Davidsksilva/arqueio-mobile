@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Container, Left, Right, TInput } from './styles';
 
-const Search = ({ style, ...rest }) => {
+const Search = ({ style, onPress, ...rest }) => {
   return (
     <Container style={style}>
-      <Left>
+      <Left onPress={onPress}>
         <Icon name="md-search" size={28} color="#3b9eff" />
       </Left>
       <Right>

@@ -37,6 +37,21 @@ const Header = ({ title, icon, navigation, color, ...rest }) => {
       case 'Options':
         return <></>;
 
+      case 'ChatList':
+        return (
+          <View style={{ display: 'flex', flexDirection: 'row' }}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('SearchContact')}
+              style={{ marginRight: 10 }}
+            >
+              <Icon name="add" size={30} color={getActionColor()} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+              <Icon name="person" size={30} color={getActionColor()} />
+            </TouchableOpacity>
+          </View>
+        );
+
       default:
         return (
           <TouchableOpacity onPress={() => navigation.navigate('Profile')}>

@@ -1,32 +1,35 @@
-import { takeLatest, call, put, all } from "redux-saga/effects";
-import { Alert } from "react-native";
+import { takeLatest, call, put, all } from 'redux-saga/effects';
+import { Alert } from 'react-native';
 
-import api from "~/services/api";
+import api from '~/services/api';
 
-import { updateProfileSuccess, updateProfileFailure } from "./actions";
+import { updateProfileSuccess, updateProfileFailure } from './actions';
 
 export function* updateProfile({ payload }) {
   try {
+    // eslint-disable-next-line camelcase
     const { name, email, avatar_id, ...rest } = payload.data;
 
-    const profile = Object.assign(
-      { name, email, avatar_id },
-      rest.oldPassword ? rest : {}
-    );
+    const profile = {
+      name,
+      email,
+      avatar_id,
+      ...(rest.oldPassword ? rest : {}),
+    };
 
-    const response = yield call(api.put, "users", profile);
+    const response = yield call(api.put, 'users', profile);
 
-    Alert.alert("Sucesso!", "Perfil atualizado com sucesso");
+    Alert.alert('Sucesso!', 'Perfil atualizado com sucesso');
 
     yield put(updateProfileSuccess(response.data));
   } catch (err) {
     Alert.alert(
-      "Falha na atualização",
-      "Houve um erro no cadastro, verifique seus dados"
+      'Falha na atualização',
+      'Houve um erro no cadastro, verifique seus dados'
     );
 
     yield put(updateProfileFailure());
   }
 }
 
-export default all([takeLatest("@user/UPDATE_PROFILE_REQUEST", updateProfile)]);
+export default all([takeLatest('@user/UPDATE_PROFILE_REQUEST', updateProfile)]);
