@@ -8,7 +8,6 @@ import {
   SearchBar,
   Filter,
   ImageContainer,
-  Image,
   Photos,
   LoadingContainer,
   News,
@@ -36,6 +35,57 @@ const Gallery = props => {
   const [loading, setLoading] = useState(false);
   const [index, setIndex] = useState(1);
   const [searchImage, setSearchImage] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
+  const [page, setPage] = useState(1);
+
+  async function loadMore() {
+    const nextPage = page + 1;
+
+    if (index === 1) {
+      const response = await api.get('/gallery', {
+        params: { page: nextPage },
+      });
+
+      const updatedImages = images.concat(response.data);
+
+      setImages(updatedImages);
+    } else if (index > 1) {
+      const response = await api.get('/gallery', {
+        params: {
+          page: nextPage,
+          tag: listTags[index - 1].title.toLowerCase(),
+        },
+      });
+
+      const updatedImages = images.concat(response.data);
+
+      setImages(updatedImages);
+    }
+
+    setPage(nextPage);
+  }
+
+  async function refreshList() {
+    setRefreshing(true);
+
+    if (index === 1) {
+      const imgs = await api.get('/gallery');
+      const news = await api.get('/gallery?tag=novidade');
+      setImages(imgs.data);
+      setNewImages(news.data);
+    } else if (index > 1) {
+      const imgs = await api.get(
+        `/gallery?tag=${listTags[index - 1].title.toLowerCase()}`
+      );
+      setImages(imgs.data);
+    }
+
+    setRefreshing(false);
+  }
+
+  useEffect(() => {
+    setPage(1);
+  }, [index]);
 
   async function fetchImages() {
     setLoading(true);
@@ -49,7 +99,6 @@ const Gallery = props => {
         `/gallery?tag=${listTags[index - 1].title.toLowerCase()}`
       );
       setImages(imgs.data);
-      console.log(imgs.data);
     }
     setLoading(false);
   }
@@ -110,15 +159,17 @@ const Gallery = props => {
                         borderRadius: 10,
                       }}
                       source={{
-                        uri: item.item.image.path,
+                        // uri: item.item.image.path,
+                        uri: `https://aunyldqfdm.cloudimg.io/width/${Math.floor(
+                          BOX_SIZE
+                        )}/x/${item.item.image.path}`,
                         priority: FastImage.priority.normal,
                       }}
-                      // uri: `https://aunyldqfdm.cloudimg.io/width/${BOX_SIZE}/x/${item.item.image.path}`,
+                      // ,
                     />
                   </ImageContainer>
                 );
               }}
-              _
             />
           )}
           {loading ? null : <Title>Inspire-se</Title>}
@@ -128,6 +179,10 @@ const Gallery = props => {
             </LoadingContainer>
           ) : (
             <Photos
+              onRefresh={refreshList}
+              refreshing={refreshing}
+              onEndReached={loadMore}
+              onEndReachedThreshold={0.2}
               data={images}
               keyExtractor={image => String(image.id)}
               columnWrapperStyle={{
@@ -150,7 +205,10 @@ const Gallery = props => {
                         borderRadius: 10,
                       }}
                       source={{
-                        uri: item.item.image.path,
+                        // uri: item.item.image.path,
+                        uri: `https://aunyldqfdm.cloudimg.io/height/${Math.floor(
+                          BOX_SIZE + 50
+                        )}/x/${item.item.image.path}`,
                         priority: FastImage.priority.normal,
                       }}
                     />
