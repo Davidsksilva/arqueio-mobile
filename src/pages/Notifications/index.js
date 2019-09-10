@@ -1,28 +1,22 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import underConst from '~/assets/under_construction.png';
+import { Container, Image, Title } from './styles';
 
 const Notifications = () => {
   return (
-    <View>
-      <Text>Notificações</Text>
-    </View>
+    <Container>
+      <Image source={underConst} />
+      <Title>Página em construção</Title>
+    </Container>
   );
 };
 
 Notifications.navigationOptions = {
-  tabBarLabel: 'Notificações',
-  // eslint-disable-next-line react/prop-types
-  tabBarIcon: ({ tintColor }) => (
-    <Icon name="md-notifications" size={28} color={tintColor} />
-  ),
   title: 'Notificações',
   headerStyle: {
     backgroundColor: '#fff',
-  },
-  headerTintColor: '#03A9F4',
-  headerTitleStyle: {
-    fontWeight: 'bold',
   },
 };
 
