@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, ActivityIndicator, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
+import FastImage from 'react-native-fast-image';
 
 import {
   Container,
@@ -103,7 +104,13 @@ const Gallery = props => {
                       });
                     }}
                   >
-                    <Image source={{ uri: item.item.image.path }} />
+                    <FastImage
+                      source={{
+                        uri: item.item.image.path,
+                        priority: FastImage.priority.normal,
+                      }}
+                      // uri: `https://aunyldqfdm.cloudimg.io/width/${BOX_SIZE}/x/${item.item.image.path}`,
+                    />
                   </ImageContainer>
                 );
               }}
@@ -133,7 +140,12 @@ const Gallery = props => {
                       });
                     }}
                   >
-                    <Image source={{ uri: item.item.image.path }} />
+                    <FastImage
+                      source={{
+                        uri: item.item.image.path,
+                        priority: FastImage.priority.normal,
+                      }}
+                    />
                   </ImageContainer>
                 );
               }}
