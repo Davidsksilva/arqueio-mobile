@@ -105,6 +105,10 @@ const Gallery = props => {
                     }}
                   >
                     <FastImage
+                      style={{
+                        flex: 1,
+                        borderRadius: 10,
+                      }}
                       source={{
                         uri: item.item.image.path,
                         priority: FastImage.priority.normal,
@@ -141,6 +145,10 @@ const Gallery = props => {
                     }}
                   >
                     <FastImage
+                      style={{
+                        flex: 1,
+                        borderRadius: 10,
+                      }}
                       source={{
                         uri: item.item.image.path,
                         priority: FastImage.priority.normal,
