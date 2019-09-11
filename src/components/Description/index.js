@@ -10,9 +10,10 @@ import {
   Text,
   Button,
   Image,
+  ShowMore,
 } from './styles';
 
-const Description = ({ logo, name, text, tags, furnisher, ...rest }) => {
+const Description = ({ logo, name, text, send, tags, furnisher, ...rest }) => {
   return (
     <Container {...rest}>
       <Top>
@@ -20,7 +21,7 @@ const Description = ({ logo, name, text, tags, furnisher, ...rest }) => {
           <Image resizeMode="stretch" source={{ uri: logo }} />
         </Left>
         <Right>
-          <Button icon="send" color="#3398f4">
+          <Button icon="send" color="#3398f4" onPress={send}>
             Enviar
           </Button>
           <Button icon="archive" color="#3398f4">
@@ -30,6 +31,7 @@ const Description = ({ logo, name, text, tags, furnisher, ...rest }) => {
       </Top>
       <Bottom>
         <Text>{text}</Text>
+        <ShowMore>... visualiar mais</ShowMore>
       </Bottom>
     </Container>
   );
@@ -41,6 +43,7 @@ Description.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   text: PropTypes.string.isRequired,
   furnisher: PropTypes.func.isRequired,
+  send: PropTypes.func.isRequired,
 };
 
 export default Description;

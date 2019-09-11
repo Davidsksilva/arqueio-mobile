@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { NavigationEvents } from 'react-navigation';
-import { ActivityIndicator } from 'react-native';
 
+/* import { NavigationEvents } from 'react-navigation';
+import { ActivityIndicator } from 'react-native';
 import ProjectCard from '~/components/ProjectCard';
 import ButtonInput from '~/components/ButtonInput';
 import globalStyle from '~/styles/global';
 import { Container, Projects, LoadingContainer } from './styles';
 
-import api from '~/services/api';
+import api from '~/services/api'; */
 
 /* import img01 from '~/assets/img01.jpg';
 import img02 from '~/assets/img02.jpg';
@@ -30,8 +30,18 @@ import img02 from '~/assets/img02.jpg';
   },
 ]; */
 
+import underConst from '~/assets/under_construction.png';
+import { Container, Image, Title } from './styles';
+
 const MyProjects = () => {
-  const [projects, setProjects] = useState([]);
+  return (
+    <Container>
+      <Image source={underConst} />
+      <Title>Página em construção</Title>
+    </Container>
+  );
+
+  /* const [projects, setProjects] = useState([]);
   const [name, setName] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -82,12 +92,6 @@ const MyProjects = () => {
           returnKeyType="send"
           onSubmitEditing={handleCreateProject}
         />
-        {/* <CreateButtonContainer>
-          <CreateButton onPress={handleCreateProject}>
-            <MaterialIcon name="add-circle-outline" color="#fff" size={32} />
-            <CreateText>Criar um Projeto</CreateText>
-          </CreateButton>
-        </CreateButtonContainer> */}
 
         {loading ? (
           <LoadingContainer>
@@ -112,6 +116,7 @@ const MyProjects = () => {
       </Container>
     </>
   );
+  */
 };
 
 MyProjects.propTypes = {
