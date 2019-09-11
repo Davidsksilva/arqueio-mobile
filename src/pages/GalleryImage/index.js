@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { ActivityIndicator, Dimensions } from 'react-native';
+import { ActivityIndicator, Dimensions, Linking } from 'react-native';
 
+import FastImage from 'react-native-fast-image';
 import Description from '~/components/Description';
 import Products from '~/components/Products';
 
@@ -108,8 +109,26 @@ const GalleryImage = props => {
                   width: BOX_SIZE,
                   marginRight: 10,
                 }}
+                onPress={() => {
+                  props.navigation.navigate('GalleryImage', {
+                    info: item.item,
+                  });
+                }}
               >
-                <ImageSimilar source={{ uri: item.item.image.path }} />
+                <FastImage
+                  style={{
+                    flex: 1,
+                    borderRadius: 10,
+                  }}
+                  source={{
+                    // uri: item.item.image.path,
+                    uri: `https://aunyldqfdm.cloudimg.io/width/${Math.floor(
+                      BOX_SIZE
+                    )}/x/${item.item.image.path}`,
+                    priority: FastImage.priority.normal,
+                  }}
+                  // ,
+                />
               </ImageContainer>
             );
           }}
@@ -119,9 +138,31 @@ const GalleryImage = props => {
       <Products />
       <ButtonsContainer>
         <ButtonFurnisher icon="open-in-new">Site</ButtonFurnisher>
-        <ButtonFurnisher icon="local-phone">Contato</ButtonFurnisher>
-        <ButtonFurnisher icon="place">Endereço</ButtonFurnisher>
-        <ButtonFurnisher icon="person-add">Sociais</ButtonFurnisher>
+        <ButtonFurnisher
+          icon="local-phone"
+          onPress={() => {
+            Linking.openURL(`tel:${imageInfo.sponsor.contact}`);
+          }}
+        >
+          Contato
+        </ButtonFurnisher>
+        <ButtonFurnisher
+          icon="place"
+          onPress={() => {
+            const str = imageInfo.sponsor.address.split(' ').join('+');
+            Linking.openURL(`https://www.google.com.br/maps/search/${str}`);
+          }}
+        >
+          Endereço
+        </ButtonFurnisher>
+        <ButtonFurnisher
+          icon="person-add"
+          onPress={() => {
+            Linking.openURL(`mailto:${imageInfo.sponsor.email}`);
+          }}
+        >
+          Sociais
+        </ButtonFurnisher>
       </ButtonsContainer>
       {loading ? null : <Title>Imagens Semelhantes</Title>}
       {loading ? (
@@ -150,7 +191,20 @@ const GalleryImage = props => {
                   });
                 }}
               >
-                <ImageSimilar source={{ uri: item.item.image.path }} />
+                <FastImage
+                  style={{
+                    flex: 1,
+                    borderRadius: 10,
+                  }}
+                  source={{
+                    // uri: item.item.image.path,
+                    uri: `https://aunyldqfdm.cloudimg.io/width/${Math.floor(
+                      BOX_SIZE
+                    )}/x/${item.item.image.path}`,
+                    priority: FastImage.priority.normal,
+                  }}
+                  // ,
+                />
               </ImageContainer>
             );
           }}
