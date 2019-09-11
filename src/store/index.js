@@ -62,8 +62,8 @@ export const LoginSocket = id => {
   socket.emit('chats', { id });
 };
 
-export const sendMessage = (text, sender, receiver) => {
-  socket.emit('message', { text, sender, receiver });
+export const sendMessage = (text, sender, receiver, data) => {
+  socket.emit('message', { text, sender, receiver, data });
 };
 
 export { store, persistor };
