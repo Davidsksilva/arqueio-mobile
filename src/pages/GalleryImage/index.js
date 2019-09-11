@@ -62,7 +62,7 @@ const GalleryImage = props => {
 
   function openChat(receivingUser) {
     setModalVisible(false);
-    navigate('OneChat', { receivingUser, imageInfo });
+    navigate('OneChat', { receivingUser, post: imageInfo });
   }
 
   async function loadMore() {
