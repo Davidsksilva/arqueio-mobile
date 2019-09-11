@@ -34,6 +34,7 @@ const ChatStack = createStackNavigator(
     Profile,
     SearchContact,
     OneChat,
+    GalleryImage,
   },
   {
     initialRouteName: 'ChatList',

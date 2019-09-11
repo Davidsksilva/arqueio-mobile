@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { GiftedChat } from 'react-native-gifted-chat';
+import {
+  GiftedChat,
+  Message,
+  MessageText,
+  MessageImage,
+} from 'react-native-gifted-chat';
 
 import { openChat, sendMessage } from '~/store/';
 
@@ -34,16 +39,8 @@ const OneChat = props => {
       }
 
       if (m.data) {
-        m.image.image = m.data.image.path;
-        m.text = (
-          <Text
-            onPress={() => {
-              navigate('GalleryImage', { info: m.data });
-            }}
-          >
-            {m.text}
-          </Text>
-        );
+        m.image = m.data.image.path;
+        // m.text = null;
       }
 
       m.read = true;
@@ -56,9 +53,21 @@ const OneChat = props => {
     sendMessage(message.text, user, receiver, null);
   }
 
+  /* function renderOnPress(currentMsg) {
+    if (currentMsg.data) {
+      navigate('GalleryImage', { info: currentMsg.data });
+    }
+  }
+
+  function renderMessage(msgProps) {
+    msgProps.imageProps.onPress = () => renderOnPress(msgProps.currentMessage);
+    console.tron.log(msgProps);
+    return <Message {...msgProps} />;
+  }
+*/
   useEffect(() => {
     openChat({ user, receiver });
-    const post = props.navigation.getParam('receivingPost');
+    const post = props.navigation.getParam('post');
     if (post) {
       sendMessage('Cheque essa referência!', user, receiver, post);
     }
@@ -81,6 +90,7 @@ const OneChat = props => {
     <View style={{ flex: 1, height: '100%' }}>
       <GiftedChat
         messages={messages}
+        // renderMessage={renderMessage}
         onSend={message => send(message[0])}
         user={{
           _id: user.id,

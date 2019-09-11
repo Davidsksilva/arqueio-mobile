@@ -21,9 +21,9 @@ Archive.navigationOptions = {
   ),
   title: 'Arquivos',
   headerStyle: {
-    backgroundColor: '#03A9F4',
+    backgroundColor: '#fff',
   },
-  headerTintColor: '#fff',
+  headerTintColor: '#03A9F4',
   headerTitleStyle: {
     fontWeight: 'bold',
   },

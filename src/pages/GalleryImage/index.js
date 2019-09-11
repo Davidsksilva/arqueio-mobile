@@ -10,6 +10,8 @@ import FastImage from 'react-native-fast-image';
 import Description from '~/components/Description';
 import Products from '~/components/Products';
 
+import avatar from '~/assets/avatar.png';
+
 import {
   Container,
   Image,
