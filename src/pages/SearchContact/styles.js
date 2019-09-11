@@ -81,3 +81,9 @@ export const ChatItemRow = styled.View`
   align-items: center;
   width: 100%;
 `;
+
+export const LoadingContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;

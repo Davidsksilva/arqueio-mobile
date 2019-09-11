@@ -4,7 +4,12 @@ import { takeLatest, call, put, all } from 'redux-saga/effects';
 // import history from "~/services/history";
 import api from '~/services/api';
 
-import { signInSuccess, signFailure, signInRequest } from './actions';
+import {
+  signInSuccess,
+  signFailure,
+  signInRequest,
+  signUpSuccess,
+} from './actions';
 
 import { LoginSocket } from '~/store';
 
@@ -21,8 +26,8 @@ export function* signIn({ payload }) {
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    //LoginSocket(user.id);
-    
+    // LoginSocket(user.id);
+
     yield put(signInSuccess(token, user));
 
     // history.push("/dashboard");

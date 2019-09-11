@@ -14,6 +14,19 @@ const FilterBar = ({ tags, handleButton, ...rest }) => {
     flatListRef.scrollToIndex({ index: id_ - 1, animated: true });
   }
 
+  function isActive(item) {
+    const filtered = tags.filter(t => t.title !== '');
+    let singleTagId = -1;
+    if (filtered.length === 1) {
+      singleTagId = filtered[0].id;
+    }
+
+    if (singleTagId !== -1) {
+      return item.id === singleTagId;
+    }
+    return item.id === index;
+  }
+
   return (
     <Container {...rest}>
       <Tags
@@ -23,7 +36,7 @@ const FilterBar = ({ tags, handleButton, ...rest }) => {
           setFlatListRef(ref);
         }}
         renderItem={({ item }) =>
-          item.id === index ? (
+          isActive(item) ? (
             <ButtonF
               textColor="#3b9eff"
               style={{ borderBottomColor: '#3b9eff', borderBottomWidth: 2 }}

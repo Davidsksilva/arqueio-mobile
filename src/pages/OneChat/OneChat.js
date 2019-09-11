@@ -5,16 +5,16 @@ import { GiftedChat } from 'react-native-gifted-chat';
 
 import { openChat, sendMessage } from '~/store/';
 
-const OneChat = props => {
-  const [messagesState, setMessagesState] = useState([]);
+import defaultAvatar from '~/assets/avatar.png';
 
+const OneChat = props => {
   const user = useSelector(state => ({
     id: state.user.profile.id,
     name: state.user.profile.name,
     email: state.user.profile.email,
+    avatar: state.user.profile.avatar,
   }));
   const receiver = props.navigation.getParam('receivingUser');
-
   const messages = useSelector(state => {
     const conversations = state.messages;
 
@@ -23,6 +23,16 @@ const OneChat = props => {
     if (!result || !result.length) {
       return [];
     }
+
+    result[0].messages.forEach(m => {
+      m.user.avatar = result[0].user.avatar ? result[0].user.avatar.path : null;
+
+      if (!m.user.avatar) {
+        m.user.avatar = receiver.image ? receiver.image.path : defaultAvatar;
+      }
+
+      m.read = true;
+    });
 
     return result[0].messages;
   });
