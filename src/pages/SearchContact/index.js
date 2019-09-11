@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { ScrollView } from 'react-native';
+import { ScrollView, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import api from '~/services/api';
 
-import avatar from '~/assets/00_Teste/Profile_01.jpg';
+import avatar from '~/assets/avatar.png';
 import global from '~/styles/global';
 
 import { gotNewUser } from '~/store/modules/contacts/actions';
@@ -22,13 +22,14 @@ import {
   ChatItemContent,
   ChatItemInner,
   ChatItemRow,
+  LoadingContainer,
 } from './styles';
 
 const SearchContact = props => {
   const { navigate } = props.navigation;
   const dispatch = useDispatch();
-  const [searchEmail, setSearchEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const [searchEmail, setSearchEmail] = useState('');
   const [users, setUsers] = useState([]);
 
   async function fetchUsers() {
@@ -43,9 +44,10 @@ const SearchContact = props => {
     setLoading(false);
   }
 
-  function addContact(item) {
-    dispatch(gotNewUser(item));
-    navigate('ChatList');
+  function addContact(receivingUser) {
+    // dispatch(gotNewUser(item));
+    // navigate('ChatList');
+    navigate('OneChat', { receivingUser });
   }
 
   return (
@@ -61,28 +63,34 @@ const SearchContact = props => {
             returnKeyType="send"
             onSubmitEditing={fetchUsers}
           />
-          <List
-            data={users}
-            refreshing={loading}
-            keyExtractor={item => String(item.id)}
-            renderItem={({ item }) => (
-              <ChatItemOutter key={item.id} onPress={() => addContact(item)}>
-                <ChatItemInner>
-                  <ChatItemAvatar
-                    source={item.image.path ? { uri: item.image.path } : avatar}
-                  />
-                  <ChatItemContent>
-                    <ChatItemRow>
-                      <ChatItemTextName>{item.name}</ChatItemTextName>
-                    </ChatItemRow>
-                    <ChatItemRow>
-                      <ChatItemText>{item.email}</ChatItemText>
-                    </ChatItemRow>
-                  </ChatItemContent>
-                </ChatItemInner>
-              </ChatItemOutter>
-            )}
-          />
+          {loading ? (
+            <LoadingContainer>
+              <ActivityIndicator color="#333" size="large" />
+            </LoadingContainer>
+          ) : (
+            <List
+              data={users}
+              refreshing={loading}
+              keyExtractor={item => String(item.id)}
+              renderItem={({ item }) => (
+                <ChatItemOutter key={item.id} onPress={() => addContact(item)}>
+                  <ChatItemInner>
+                    <ChatItemAvatar
+                      source={item.avatar ? { uri: item.avatar.path } : avatar}
+                    />
+                    <ChatItemContent>
+                      <ChatItemRow>
+                        <ChatItemTextName>{item.name}</ChatItemTextName>
+                      </ChatItemRow>
+                      <ChatItemRow>
+                        <ChatItemText>{item.email}</ChatItemText>
+                      </ChatItemRow>
+                    </ChatItemContent>
+                  </ChatItemInner>
+                </ChatItemOutter>
+              )}
+            />
+          )}
         </Container>
       </ScrollView>
     </Container>

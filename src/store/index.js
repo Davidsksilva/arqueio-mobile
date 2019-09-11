@@ -5,7 +5,11 @@ import createStore from './createStore';
 import persistReducers from './persistReducers';
 import socket from '~/config/socket';
 
-import { gotMessages, gotNewMessages } from '~/store/modules/messages/actions';
+import {
+  gotMessages,
+  gotNewMessages,
+  gotAllMessages,
+} from '~/store/modules/messages/actions';
 import { gotUsers, gotNewUser } from '~/store/modules/contacts/actions';
 
 import rootReducer from './modules/rootReducer';
@@ -30,6 +34,10 @@ socket.on('incomingMessage', message => {
   store.dispatch(gotNewMessages(message));
 });
 
+socket.on('allPriorMessages', messages => {
+  store.dispatch(gotAllMessages(messages));
+});
+
 socket.on('users', payload => {
   store.dispatch(gotUsers(payload));
 });
@@ -51,6 +59,7 @@ export const openChat = users => {
 
 export const LoginSocket = id => {
   socket.emit('login', { id });
+  socket.emit('chats', { id });
 };
 
 export const sendMessage = (text, sender, receiver) => {

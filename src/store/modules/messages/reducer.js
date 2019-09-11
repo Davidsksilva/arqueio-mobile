@@ -1,10 +1,10 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-case-declarations */
 const INITIAL_STATE = [];
 
 export default function messages(state = INITIAL_STATE, action) {
   switch (action.type) {
     case '@messages/GOT_MESSAGES':
-      // console.tron.log(action.payload.user.id);
       let conversationIndex = -1;
       for (let i = 0; i < state.length; i += 1) {
         if (state[i].id === action.payload.user.id) {
@@ -12,13 +12,6 @@ export default function messages(state = INITIAL_STATE, action) {
           break;
         }
       }
-      /* const conversationIndex = state.indexOf(e => {
-        console.tron.log(e.id);
-
-        return e.id === action.payload.user.id;
-      }); */
-
-      // console.tron.log(conversationIndex);
 
       if (conversationIndex === -1) {
         return [
@@ -38,17 +31,40 @@ export default function messages(state = INITIAL_STATE, action) {
     // return action.payload.messages ? action.payload.messages : [];
     case '@messages/GOT_NEW_MESSAGE':
       const { users, message } = action.payload;
+      const encounters = state.filter(item => users.includes(item.id));
 
-      return state.map(item => {
-        if (users.includes(item.id)) {
-          return {
-            ...item,
-            messages: [message, ...item.messages],
-          };
-        }
+      if (encounters.length) {
+        return state.map(item => {
+          if (users.includes(item.id)) {
+            return {
+              ...item,
+              messages: [message, ...item.messages],
+            };
+          }
 
-        return item;
-      });
+          return item;
+        });
+      }
+      return [
+        ...state,
+        {
+          id: message.user._id,
+          user: {
+            id: message.user._id,
+            name: message.user.name,
+            avatar: message.user.avatar
+              ? {
+                  path: message.user.avatar,
+                }
+              : null,
+          },
+          messages: [message],
+        },
+      ];
+
+    case '@messages/GOT_ALL_MESSAGES':
+      return action.payload;
+
     case '@messages/RESET_MESSAGES':
       return [];
     default:
