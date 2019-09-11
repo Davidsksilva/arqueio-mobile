@@ -101,6 +101,7 @@ const GalleryStack = createStackNavigator(
     Gallery,
     GalleryImage,
     GalleryFurnisher,
+    OneChat,
     Options,
     Profile,
   },
@@ -138,7 +139,40 @@ const NotificationStack = createStackNavigator(
     Profile,
   },
   {
-    initialRouteName: 'Notification',
+    initialRouteName: 'Notifications',
+    headerMode: 'float',
+
+    defaultNavigationOptions: navigation => ({
+      header: props => {
+        // eslint-disable-next-line react/prop-types
+        const { scene } = props;
+        return (
+          <Header
+            // eslint-disable-next-line react/prop-types
+            color={scene.descriptor.options.headerStyle.backgroundColor}
+            // eslint-disable-next-line react/prop-types
+            title={scene.descriptor.options.title}
+            {...navigation}
+          />
+        );
+      },
+    }),
+    cardStyle: {
+      backgroundColor: globalStyle.secondary,
+    },
+    transitionConfig: () =>
+      ReactNavigation.StackViewTransitionConfigs.SlideFromRightIOS,
+  }
+);
+
+const ArchiveStack = createStackNavigator(
+  {
+    Archive,
+    Options,
+    Profile,
+  },
+  {
+    initialRouteName: 'Archive',
     headerMode: 'float',
 
     defaultNavigationOptions: navigation => ({
@@ -203,7 +237,25 @@ const BottomTab = createBottomTabNavigator(
       },
     },
 
-    Notifications,
+    Notifications: {
+      screen: NotificationStack,
+      navigationOptions: {
+        tabBarLabel: 'Notifcações',
+        // eslint-disable-next-line react/prop-types
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="md-notifications" size={28} color={tintColor} />
+        ),
+        title: 'Notifcações',
+        headerStyle: {
+          backgroundColor: globalStyle.primary,
+        },
+        headerTintColor: globalStyle.secondary,
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      },
+    },
+
     Chat: {
       screen: ChatStack,
       navigationOptions: {
@@ -222,7 +274,25 @@ const BottomTab = createBottomTabNavigator(
         },
       },
     },
-    Archive,
+
+    Archive: {
+      screen: ArchiveStack,
+      navigationOptions: {
+        tabBarLabel: 'Arquivos',
+        // eslint-disable-next-line react/prop-types
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="md-archive" size={28} color={tintColor} />
+        ),
+        title: 'Arquivos',
+        headerStyle: {
+          backgroundColor: globalStyle.primary,
+        },
+        headerTintColor: globalStyle.secondary,
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      },
+    },
   },
   {
     tabBarOptions: {

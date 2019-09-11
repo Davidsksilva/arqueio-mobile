@@ -40,6 +40,15 @@ export const Text = styled.Text`
   color: #384145;
   font-size: 14px;
   line-height: 22px;
+  text-align: justify;
+`;
+
+export const ShowMore = styled.Text`
+  color: #3398f4;
+  font-size: 16px;
+  line-height: 22px;
+  margin: 10px 0px;
+  text-align: right;
 `;
 
 export const Button = styled(FilterButton).attrs({

@@ -1,12 +1,15 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import underConst from '~/assets/under_construction.png';
+import { Container, Image, Title } from './styles';
 
 const Archive = () => {
   return (
-    <View>
-      <Text>Arquivos</Text>
-    </View>
+    <Container>
+      <Image source={underConst} />
+      <Title>Página em construção</Title>
+    </Container>
   );
 };
 
