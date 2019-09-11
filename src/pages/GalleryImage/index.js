@@ -48,6 +48,7 @@ const GalleryImage = props => {
   const { navigate } = props.navigation;
   const messages = useSelector(state => state.messages);
   const imageInfo = props.navigation.getParam('info');
+
   console.log(imageInfo);
 
   function getUsers() {
