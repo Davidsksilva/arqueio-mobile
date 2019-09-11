@@ -182,7 +182,7 @@ const Gallery = props => {
               onRefresh={refreshList}
               refreshing={refreshing}
               onEndReached={loadMore}
-              onEndReachedThreshold={0.2}
+              onEndReachedThreshold={0.5}
               data={images}
               keyExtractor={image => String(image.id)}
               columnWrapperStyle={{

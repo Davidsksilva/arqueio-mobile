@@ -66,7 +66,15 @@ export const ChatItemContent = styled.View`
   flex: 1;
 `;
 
-export const ChatItemText = styled.Text``;
+export const ChatItemDateText = styled.Text`
+  color: #a6a6a6;
+`;
+
+export const ChatItemText = styled.Text.attrs({
+  numberOfLines: 1,
+})`
+  color: ${global.primary};
+`;
 
 export const ChatItemTextName = styled.Text`
   font-size: 18px;

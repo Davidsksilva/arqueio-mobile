@@ -5,6 +5,13 @@ export function gotMessages(messages) {
   };
 }
 
+export function gotAllMessages(messages) {
+  return {
+    type: '@messages/GOT_ALL_MESSAGES',
+    payload: messages,
+  };
+}
+
 export function gotNewMessages(payload) {
   return {
     type: '@messages/GOT_NEW_MESSAGE',
