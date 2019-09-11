@@ -28,9 +28,34 @@ const BOX_SIZE = (Dimensions.get('window').width - 40) / 2;
 const GalleryImage = props => {
   const [newImages, setNewImages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [page, setPage] = useState(1);
 
   const imageInfo = props.navigation.getParam('info');
   console.log(imageInfo);
+
+  async function loadMore() {
+    const nextPage = page + 1;
+
+    const response = await api.get('/gallery', {
+      params: { page: nextPage },
+    });
+
+    const updatedImages = newImages.concat(response.data);
+    setNewImages(updatedImages);
+    setPage(nextPage);
+  }
+
+  async function refreshList() {
+    setRefreshing(true);
+    const imgs = await api.get('/gallery');
+    setNewImages(imgs.data);
+    setRefreshing(false);
+  }
+
+  useEffect(() => {
+    setPage(1);
+  }, []);
 
   async function fetchImages() {
     setLoading(true);
@@ -55,7 +80,7 @@ const GalleryImage = props => {
         logo={
           imageInfo.sponsor === null ? null : imageInfo.sponsor.imageUrl.path
         }
-        text={imageInfo.description}
+        text={imageInfo.sponsor.description}
         furnisher={goToFurnisher}
         tags={imageInfo.tags}
       />
@@ -91,15 +116,7 @@ const GalleryImage = props => {
           _
         />
       )}
-      <ButtonsContainer>
-        <Button icon="local-mall">Loja</Button>
-        <Button icon="archive">Salvar</Button>
-        <Button icon="3d-rotation">3D</Button>
-      </ButtonsContainer>
-      <TitleFurnisher>Conheça o fornecedor</TitleFurnisher>
-      <DescriptionFurnisher>
-        {imageInfo.sponsor === null ? null : imageInfo.sponsor.description}
-      </DescriptionFurnisher>
+      <Products />
       <ButtonsContainer>
         <ButtonFurnisher icon="open-in-new">Site</ButtonFurnisher>
         <ButtonFurnisher icon="local-phone">Contato</ButtonFurnisher>
@@ -113,6 +130,10 @@ const GalleryImage = props => {
         </LoadingContainer>
       ) : (
         <Photos
+          onRefresh={refreshList}
+          refreshing={refreshing}
+          onEndReached={loadMore}
+          onEndReachedThreshold={0.2}
           data={newImages}
           keyExtractor={image => String(image.id)}
           columnWrapperStyle={{

@@ -10,6 +10,7 @@ import {
   Text,
   Button,
   Image,
+  ShowMore,
 } from './styles';
 
 const Description = ({ logo, name, text, tags, furnisher, ...rest }) => {
@@ -30,6 +31,7 @@ const Description = ({ logo, name, text, tags, furnisher, ...rest }) => {
       </Top>
       <Bottom>
         <Text>{text}</Text>
+        <ShowMore>... visualiar mais</ShowMore>
       </Bottom>
     </Container>
   );

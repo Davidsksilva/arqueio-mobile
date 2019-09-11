@@ -19,6 +19,7 @@ export const FurnisherNews = styled(FlatList).attrs({
   showsHorizontalScrollIndicator: false,
 })`
   margin-left: 15px;
+  margin-bottom: 10px;
 `;
 
 export const Photos = styled(FlatList).attrs({
@@ -50,6 +51,7 @@ export const Title = styled.Text`
   font-size: 20px;
   color: #3398f4;
   margin-left: 20px;
+  margin-bottom: 10px;
 `;
 
 export const TitleFurnisher = styled.Text`
@@ -68,9 +70,7 @@ export const ButtonsContainer = styled.View`
   flex: 1;
   flex-direction: row;
   background: #fff;
-  margin: 10px;
-  border-bottom-width: 2px;
-  border-bottom-color: #dedede;
+  margin: 15px 20px 15px 20px;
 `;
 
 export const Button = styled(FilterButton).attrs({
