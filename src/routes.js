@@ -101,6 +101,7 @@ const GalleryStack = createStackNavigator(
     Gallery,
     GalleryImage,
     GalleryFurnisher,
+    OneChat,
     Options,
     Profile,
   },

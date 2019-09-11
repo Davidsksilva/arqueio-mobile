@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { ActivityIndicator, Dimensions, Linking } from 'react-native';
+import { ActivityIndicator, Dimensions, Linking, Text } from 'react-native';
+import Modal from 'react-native-modal';
+import { useSelector } from 'react-redux';
+import { format, parseISO } from 'date-fns';
+import locale from 'date-fns/locale/pt-BR';
 
 import FastImage from 'react-native-fast-image';
 import Description from '~/components/Description';
@@ -11,15 +15,23 @@ import {
   Image,
   Photos,
   ImageContainer,
-  ImageSimilar,
   Title,
-  TitleFurnisher,
-  DescriptionFurnisher,
   LoadingContainer,
   ButtonsContainer,
   Button,
+  List,
   ButtonFurnisher,
   FurnisherNews,
+  ChatItemOutter,
+  ChatItemAvatar,
+  ChatItemContent,
+  ChatItemInner,
+  ChatItemRow,
+  ChatItemDateText,
+  ChatItemText,
+  ChatItemTextName,
+  ContainerModal,
+  ContainerBottomModal,
 } from './styles';
 
 import api from '~/services/api';
@@ -31,9 +43,27 @@ const GalleryImage = props => {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [page, setPage] = useState(1);
+  const [isModalVisible, setModalVisible] = useState(false);
 
+  const { navigate } = props.navigation;
+  const messages = useSelector(state => state.messages);
   const imageInfo = props.navigation.getParam('info');
   console.log(imageInfo);
+
+  function getUsers() {
+    return messages.map(e => {
+      const lastMsg = e.messages.length ? e.messages[0] : null;
+      return {
+        ...e.user,
+        lastMsg,
+      };
+    });
+  }
+
+  function openChat(receivingUser) {
+    setModalVisible(false);
+    navigate('OneChat', { receivingUser, imageInfo });
+  }
 
   async function loadMore() {
     const nextPage = page + 1;
@@ -69,14 +99,73 @@ const GalleryImage = props => {
     props.navigation.navigate('GalleryFurnisher');
   }
 
+  function openModal(param) {
+    setModalVisible(param);
+  }
+
   useEffect(() => {
     fetchImages();
   }, []);
 
   return (
     <Container>
+      <Modal
+        isVisible={isModalVisible}
+        animationInTiming={100}
+        animationOutTiming={100}
+        backdropTransitionInTiming={100}
+        backdropTransitionOutTiming={100}
+      >
+        <ContainerModal>
+          <List
+            data={getUsers()}
+            keyExtractor={item => String(item.id)}
+            renderItem={({ item }) => (
+              <ChatItemOutter onPress={() => openChat(item)}>
+                <ChatItemInner>
+                  <ChatItemAvatar
+                    source={item.avatar ? { uri: item.avatar.path } : avatar}
+                  />
+                  <ChatItemContent>
+                    <ChatItemRow>
+                      <ChatItemTextName>{item.name}</ChatItemTextName>
+                      <ChatItemDateText>
+                        {item.lastMsg &&
+                          format(
+                            parseISO(item.lastMsg.createdAt),
+                            'HH:mm',
+                            locale
+                          )}
+                      </ChatItemDateText>
+                    </ChatItemRow>
+                    <ChatItemRow>
+                      <ChatItemText>
+                        {item.lastMsg
+                          ? item.lastMsg.user.name !== item.name
+                            ? `Você: ${item.lastMsg.text}`
+                            : `${item.name}: ${item.lastMsg.text}`
+                          : ''}
+                      </ChatItemText>
+                    </ChatItemRow>
+                  </ChatItemContent>
+                </ChatItemInner>
+              </ChatItemOutter>
+            )}
+          />
+          <ContainerBottomModal>
+            <Button
+              onPress={() => {
+                openModal(false);
+              }}
+            >
+              Fechar
+            </Button>
+          </ContainerBottomModal>
+        </ContainerModal>
+      </Modal>
       <Image source={{ uri: imageInfo.image.path }} />
       <Description
+        send={openModal}
         name={imageInfo.sponsor === null ? null : imageInfo.sponsor.name}
         logo={
           imageInfo.sponsor === null ? null : imageInfo.sponsor.imageUrl.path
